@@ -24,7 +24,7 @@
 <main class="wrap">
   <article class="prose">
     <h1>Privacy policy</h1>
-    <p class="small">Last updated: 13 November 2026. The German version is authoritative.</p>
+    <p class="small">Last updated: 13 November 2026 (section 5, monitoring with Langfuse, added). The German version is authoritative.</p>
 
     <p>This policy covers the website <code>lab.bh-automation.cloud</code> and the Google application “Muster AG (Labor)”. Both belong to the Enterprise AI Lab, a private demonstration project. The Swiss Federal Act on Data Protection (FADP) applies.</p>
 
@@ -49,18 +49,26 @@
       <li><strong>Processing:</strong> The agent classifies each email, for example as a request, invoice, advertising or suspicious. It records category, sender, subject and a short reason in a log. From requests it creates drafts in the lab's ERP. Only Beat Hutter sees the results.</li>
       <li><strong>Language model:</strong> To classify and handle emails, their content is sent to a language model provider, currently DeepSeek. Processing takes place outside Switzerland, including in China. Please do not send confidential information to the lab mailbox.</li>
       <li><strong>Storage and retention:</strong> Access credentials and the log are kept on a project computer in Switzerland for the duration of the lab and deleted on request.</li>
-      <li><strong>No other use:</strong> The data is not sold, not used for advertising and not shared with further third parties. It is not used to train our own models.</li>
+      <li><strong>No other use:</strong> The data is not sold, not used for advertising and not shared beyond the services named here and in section 5. It is not used to train our own models.</li>
       <li><strong>Google policy:</strong> The application's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</li>
       <li><strong>Revoking access:</strong> The owner of the mailbox can revoke access at any time at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>.</li>
     </ul>
 
-    <h2>5. If you write to the lab mailbox</h2>
+    <h2 id="langfuse">5. Monitoring of the agents (Langfuse)</h2>
+    <ul>
+      <li>To trace the agents' workflows, cost and quality, the lab records every working session of the agent: model calls, tool calls, duration, tokens and cost.</li>
+      <li>For this the lab uses Langfuse Cloud by Langfuse GmbH, Berlin, with data stored in the EU. See the <a href="https://langfuse.com/privacy" target="_blank" rel="noopener">Langfuse privacy policy</a>.</li>
+      <li>Content such as instructions, responses and excerpts from emails is transmitted in shortened form, and credentials and secrets are removed beforehand. The data is kept for at most 30 days.</li>
+      <li>An email to the lab mailbox may therefore also be stored at Langfuse in shortened form.</li>
+    </ul>
+
+    <h2>6. If you write to the lab mailbox</h2>
     <p>Your email is processed as described in section 4. Muster AG is a fictional company, so no business results from your email. On request we delete your email and the log entry.</p>
 
-    <h2>6. Your rights</h2>
+    <h2>7. Your rights</h2>
     <p>You may request information about your data and ask for it to be corrected or deleted. Write to <a href="mailto:wilhelmbiener68@gmail.com">wilhelmbiener68@gmail.com</a>.</p>
 
-    <h2>7. Changes</h2>
+    <h2>8. Changes</h2>
     <p>This policy is updated when the lab gains new features. The version published here applies.</p>
   </article>
 </main>
