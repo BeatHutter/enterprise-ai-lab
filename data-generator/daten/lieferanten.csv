@@ -1,0 +1,19 @@
+nummer;name;rolle;liefert;waehrung;anteil_einkauf;strasse;plz;ort;land;aufwandkonto;steuer;zahlungsfrist
+L2001;Stahlcenter Limmat AG;material;Stahlrohre, Profile, Bleche;CHF;35;Industriestrasse 12;8957;Spreitenbach;CH;4000;vst_material;30 Tage
+L2002;Holzwerk Tirol GmbH;material;Lärchenholz;EUR;15;Gewerbepark 4;6020;Innsbruck;AT;4000;keine;30 Tage
+L2003;Pulverbeschichtung Glatttal AG;material;Pulverbeschichtung;CHF;12;Glattalstrasse 88;8304;Wallisellen;CH;4400;vst_material;30 Tage
+L2004;Corten Metall GmbH;material;Cortenstahl;EUR;8;Hafenstrasse 21;79108;Freiburg im Breisgau;DE;4000;keine;30 Tage
+L2005;Verzinkerei Furttal AG;material;Feuerverzinken;CHF;8;Furtbachstrasse 5;8105;Regensdorf;CH;4400;vst_material;30 Tage
+L2006;Glas Wyss AG;material;Verbundglas;CHF;7;Glasiweg 3;8600;Dübendorf;CH;4000;vst_material;30 Tage
+L2007;Beton Fertig AG;material;Betonelemente, Fundamentbeton;CHF;5;Kiesgrubenstrasse 9;8302;Kloten;CH;4000;vst_material;30 Tage
+L2008;Befestigungstechnik Huber AG;material;Schrauben, Beschläge, Schlösser;CHF;4;Schraubenweg 2;8400;Winterthur;CH;4000;vst_material;30 Tage
+L2009;Transporte Keller AG;material;Transporte;CHF;4;Logistikstrasse 15;8050;Zürich;CH;4400;vst_material;30 Tage
+L2010;Kunststoffwerk Aare AG;material;Inneneimer, Kunststoffteile;CHF;2;Aareweg 30;5000;Aarau;CH;4000;vst_material;30 Tage
+L3001;Werkhof Immobilien AG;fixkosten;Miete Werkhalle und Büro;CHF;;Werkhofstrasse 1;8000;Zürich;CH;6000;keine;Sofortige Zahlung
+L3002;Elektrizitätswerk Talbach;fixkosten;Strom und Wärme;CHF;;Werkstrasse 2;8496;Talbach;CH;6400;vst_material;30 Tage
+L3003;Fahrzeugleasing Limmattal AG;fixkosten;Leasing zwei Lieferwagen;CHF;;Garagenstrasse 6;8952;Schlieren;CH;6260;vst_uebrig;Sofortige Zahlung
+L3004;Datenwerk Informatik GmbH;fixkosten;IT, Software, Telefonie;CHF;;Bitweg 8;8005;Zürich;CH;6570;vst_uebrig;30 Tage
+L3005;Securia Versicherungen AG;fixkosten;Betriebs- und Sachversicherungen;CHF;;Policenplatz 1;8022;Zürich;CH;6300;keine;30 Tage
+L3006;Treuhand und Revision Kalt AG;fixkosten;Revision;CHF;;Prüferweg 4;8001;Zürich;CH;6500;vst_uebrig;30 Tage
+L3007;Kommunalmesse Schweiz GmbH;fixkosten;Fachmesse für Gemeinden;CHF;;Messeplatz 3;8050;Zürich;CH;6600;vst_uebrig;30 Tage
+L3008;Werkstattbedarf Brändli AG;fixkosten;Unterhalt, Werkzeug, Diverses;CHF;;Werkzeugstrasse 14;8152;Glattbrugg;CH;6100;vst_uebrig;30 Tage

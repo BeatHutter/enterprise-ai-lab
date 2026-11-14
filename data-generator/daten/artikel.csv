@@ -1,0 +1,38 @@
+code;name;kategorie;art;einheit;verkaufspreis;materialkosten;stahlartikel;lieferant;einkaufspreis;einkaufswaehrung
+BA-100;Parkbank «Lärche» 1.8 m mit Lehne;Bänke;ware;Einheit(en);1850;720;nein;;;
+BA-110;Parkbank «Lärche» 2.4 m mit Lehne;Bänke;ware;Einheit(en);2350;920;nein;;;
+BA-120;Sitzbank «Lärche» 1.8 m ohne Lehne;Bänke;ware;Einheit(en);1350;520;nein;;;
+BA-200;Bank «Stadt» Stahl und Beton 2.0 m;Bänke;ware;Einheit(en);2900;1250;ja;;;
+BA-300;Picknick-Garnitur Lärche;Bänke;ware;Einheit(en);2450;980;nein;;;
+AB-060;Abfallbehälter 60 l verzinkt;Abfall;ware;Einheit(en);480;190;ja;;;
+AB-110;Abfallbehälter 110 l mit Ascher;Abfall;ware;Einheit(en);690;270;ja;;;
+AB-300;Recyclingstation 3-fach;Abfall;ware;Einheit(en);2800;1150;ja;;;
+AB-400;Hundekot-Station mit Beutelspender;Abfall;ware;Einheit(en);420;160;ja;;;
+VE-010;Velobügel einzeln, zum Einbetonieren;Velo;ware;Einheit(en);290;105;ja;;;
+VE-050;Veloständer 5 Plätze;Velo;ware;Einheit(en);1150;440;ja;;;
+VE-100;Velounterstand 10 Plätze, Glasdach;Velo;ware;Einheit(en);9800;4300;ja;;;
+VE-200;Velounterstand 20 Plätze, Glasdach;Velo;ware;Einheit(en);17500;7800;ja;;;
+GR-080;Pflanztrog Cortenstahl 80 cm;Grün;ware;Einheit(en);980;380;nein;;;
+GR-120;Pflanztrog Cortenstahl 120 cm;Grün;ware;Einheit(en);1450;580;nein;;;
+GR-200;Baumschutzgitter rund;Grün;ware;Einheit(en);1250;480;ja;;;
+PO-010;Poller fest;Absperrungen;ware;Einheit(en);240;85;ja;;;
+PO-020;Poller herausnehmbar mit Schloss;Absperrungen;ware;Einheit(en);480;190;ja;;;
+PO-100;Geländer verzinkt, pro Laufmeter;Absperrungen;ware;m;320;130;ja;;;
+ET-100;Ersatzlatten-Set Lärche für Parkbank;Ersatzteile;ware;Einheit(en);380;120;nein;;;
+ET-200;Inneneimer 110 l;Ersatzteile;ware;Einheit(en);95;35;nein;;;
+DL-010;Montage, pro Stunde;Dienstleistungen;dienst;Stunden;118;0;nein;;;
+DL-020;Transport pauschal, Region Zürich;Dienstleistungen;dienst;Einheit(en);280;60;nein;;;
+DL-030;Fundament erstellen, pro Stück;Dienstleistungen;dienst;Einheit(en);260;90;nein;;;
+DL-100;Planung und Sonderanfertigung, pro Stunde;Dienstleistungen;dienst;Stunden;135;0;nein;;;
+EK-ST-ROHR;Stahlrohre und Profile;Material;einkauf;kg;;2.40;nein;Stahlcenter Limmat AG;2.40;CHF
+EK-ST-BLECH;Stahlbleche;Material;einkauf;kg;;2.20;nein;Stahlcenter Limmat AG;2.20;CHF
+EK-LAERCHE;Lärchenholz, sägeroh;Material;einkauf;m³;;830;nein;Holzwerk Tirol GmbH;890;EUR
+EK-CORTEN;Cortenstahl-Blech;Material;einkauf;kg;;2.75;nein;Corten Metall GmbH;2.95;EUR
+EK-GLAS;Verbundsicherheitsglas;Material;einkauf;m²;;185;nein;Glas Wyss AG;185;CHF
+EK-BETON;Betonelemente;Material;einkauf;Einheit(en);;165;nein;Beton Fertig AG;165;CHF
+EK-FUNDAMENT;Fundamentbeton;Material;einkauf;m³;;210;nein;Beton Fertig AG;210;CHF
+EK-BEFEST;Schrauben, Beschläge, Schlösser (Set);Material;einkauf;Einheit(en);;38;nein;Befestigungstechnik Huber AG;38;CHF
+EK-KUNSTSTOFF;Inneneimer und Kunststoffteile;Material;einkauf;Einheit(en);;24;nein;Kunststoffwerk Aare AG;24;CHF
+EK-PULVER;Pulverbeschichtung;Fremdleistungen;einkauf;m²;;26;nein;Pulverbeschichtung Glatttal AG;26;CHF
+EK-ZINK;Feuerverzinken;Fremdleistungen;einkauf;kg;;0.95;nein;Verzinkerei Furttal AG;0.95;CHF
+EK-TRANSPORT;Transport, pro Fahrt;Fremdleistungen;einkauf;Einheit(en);;340;nein;Transporte Keller AG;340;CHF

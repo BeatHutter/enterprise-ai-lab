@@ -1,0 +1,20 @@
+
+# =============================================================================
+# Muster AG, Etappe B (2.11.2026): Updates und Nachinstallationen nur durch Beat
+# Vorlage: muster-kmu/hermes/vorlagen/config-zusatz.yaml
+# =============================================================================
+security:
+  # Keine Zusatzpakete von PyPI bei Bedarf nachladen
+  allow_lazy_installs: false
+
+approvals:
+  mode: smart
+  # Harte Sperren: greifen auch im Modus off und mit --yolo
+  deny:
+    - "*hermes update*"
+    - "*hermes pm *"
+    - "*pm.cli*"
+    - "*install.sh*"
+    - "*install.ps1*"
+  # Für den Prüfer im Modus smart: Installationen immer Beat vorlegen
+  smart_policy: "Always ESCALATE commands that install, upgrade or download software or packages (pip, uv, npm, npx, apt, curl or wget piped to a shell, hermes plugins install, hermes mcp install, hermes skills install)."

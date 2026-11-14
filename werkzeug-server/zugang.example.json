@@ -1,0 +1,10 @@
+{
+  "_hinweis": "Vorlage. Echte Liste in zugang.json (nicht in Git), erzeugt mit schluessel-erzeugen.py. Nur Hashes, nie Schlüssel.",
+  "aufrufer": [
+    {
+      "name": "manni",
+      "hash": "<sha256 des Schlüssels>",
+      "werkzeuge": ["ping"]
+    }
+  ]
+}

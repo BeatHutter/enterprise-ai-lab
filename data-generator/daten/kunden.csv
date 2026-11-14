@@ -1,0 +1,41 @@
+nummer;name;segment;strasse;plz;ort;zahlt_nach_tagen;gewicht;notiz
+K1001;Stadt Seefeld;Gemeinden und Städte;Stadthausplatz 1;8712;Seefeld;26;3;Grossprojekt Bahnhofplatz 2026 (P3)
+K1002;Gemeinde Talbach;Gemeinden und Städte;Dorfstrasse 12;8496;Talbach;27;2;Dezember-Bestellungen
+K1003;Gemeinde Bachenrain;Gemeinden und Städte;Gemeindehausplatz 3;8934;Bachenrain;29;2;Dezember-Bestellungen
+K1004;Stadt Altmatt;Gemeinden und Städte;Stadthaus, Marktgasse 5;8620;Altmatt;30;2;
+K1005;Gemeinde Erlenbühl;Gemeinden und Städte;Schulhausstrasse 2;8475;Erlenbühl;25;1;
+K1006;Gemeinde Föhrenwil;Gemeinden und Städte;Kirchweg 4;8133;Föhrenwil;28;1;
+K1007;Gemeinde Lindmatt;Gemeinden und Städte;Hauptstrasse 30;8913;Lindmatt;31;1;
+K1008;Gemeinde Moosrüti;Gemeinden und Städte;Dorfplatz 1;8494;Moosrüti;24;1;
+K1009;Gemeinde Birkenried;Gemeinden und Städte;Gemeindehaus, Riedstrasse 8;8456;Birkenried;29;1;
+K1010;Gemeinde Steinwies;Gemeinden und Städte;Wiesenstrasse 15;8164;Steinwies;27;1;
+K1011;Gemeinde Ahornbach;Gemeinden und Städte;Bachstrasse 2;8342;Ahornbach;33;1;
+K1012;Gemeinde Wiesenau;Gemeinden und Städte;Auweg 6;8463;Wiesenau;26;1;
+K1013;Stadt Brunnmatt;Gemeinden und Städte;Stadthausstrasse 9;8630;Brunnmatt;30;2;
+K1014;Gemeinde Eichrain;Gemeinden und Städte;Eichenweg 1;8916;Eichrain;28;1;
+K2001;Rietli Immobilien AG;Immobilienverwaltungen und Genossenschaften;Rietlistrasse 20;8050;Zürich;38;2;zahlt ab Herbst 2025 immer später (P2)
+K2002;Wohnbaugenossenschaft Sonnhalde;Immobilienverwaltungen und Genossenschaften;Sonnhaldenweg 7;8048;Zürich;36;2;Velounterstände
+K2003;Immobilien Weidmatt AG;Immobilienverwaltungen und Genossenschaften;Weidmattstrasse 44;8400;Winterthur;42;1;
+K2004;Verwaltung Kornfeld AG;Immobilienverwaltungen und Genossenschaften;Kornfeldstrasse 3;8304;Wallisellen;40;1;
+K2005;Wohnbaugenossenschaft Talgarten;Immobilienverwaltungen und Genossenschaften;Talgartenweg 11;8055;Zürich;37;1;
+K2006;Liegenschaften Burgacher AG;Immobilienverwaltungen und Genossenschaften;Burgackerstrasse 5;8600;Dübendorf;44;1;
+K2007;Siedlungsgenossenschaft Erlenhof;Immobilienverwaltungen und Genossenschaften;Erlenhofweg 2;8404;Winterthur;39;1;
+K2008;Immoverwaltung Rebhalde GmbH;Immobilienverwaltungen und Genossenschaften;Rebhaldenstrasse 18;8820;Wädenswil;46;1;
+K2009;Baugenossenschaft Mattenhof;Immobilienverwaltungen und Genossenschaften;Mattenhofweg 9;8051;Zürich;38;1;
+K2010;Arealverwaltung Gleisfeld AG;Immobilienverwaltungen und Genossenschaften;Gleisfeldstrasse 1;8952;Schlieren;41;1;
+K3001;Grünwerk Gartenbau GmbH;Garten- und Landschaftsbau;Gärtnerweg 4;8105;Regensdorf;44;3;grösster Wiederverkäufer
+K3002;Gartenbau Moosmann AG;Garten- und Landschaftsbau;Moosstrasse 21;8302;Kloten;47;1;
+K3003;Landschaftsbau Föhrenwil GmbH;Garten- und Landschaftsbau;Industriestrasse 7;8133;Föhrenwil;43;1;
+K3004;Gärten Eichholzer AG;Garten- und Landschaftsbau;Eichholzweg 3;8907;Wetzwil;48;1;
+K3005;Grünraum Altmatt GmbH;Garten- und Landschaftsbau;Werkhofstrasse 12;8620;Altmatt;42;1;
+K3006;Weidmann Garten- und Landschaftsbau AG;Garten- und Landschaftsbau;Baumschulweg 6;8340;Hinwil;46;1;
+K4001;Schulgemeinde Hinterberg;Schulgemeinden;Schulhausstrasse 10;8499;Hinterberg;31;2;Sparprogramm 2026 (P4)
+K4002;Primarschulgemeinde Talbach;Schulgemeinden;Schulweg 2;8496;Talbach;29;1;
+K4003;Sekundarschulgemeinde Altmatt-Wiesenau;Schulgemeinden;Oberstufenzentrum, Feldstrasse 4;8620;Altmatt;30;1;
+K4004;Schulgemeinde Erlenbühl;Schulgemeinden;Schulhausstrasse 4;8475;Erlenbühl;28;1;
+K4005;Schulgemeinde Lindmatt;Schulgemeinden;Pausenplatz 1;8913;Lindmatt;32;1;
+K5001;Bergbahnen Hochmatt AG;Hotels und Bergbahnen;Talstation 1;7083;Hochmatt;34;2;bestellt jeden März
+K5002;Berghotel Gratalp AG;Hotels und Bergbahnen;Gratalp 1;7083;Hochmatt;36;1;
+K5003;Sesselbahn Glattegg AG;Hotels und Bergbahnen;Talstrasse 8;3862;Glattegg;35;1;
+K5004;Kurhaus Bergsonne AG;Hotels und Bergbahnen;Sonnenweg 12;6377;Bergsonne;33;1;
+K5005;Seehotel Wiesenau AG;Hotels und Bergbahnen;Seestrasse 50;8463;Wiesenau;37;1;

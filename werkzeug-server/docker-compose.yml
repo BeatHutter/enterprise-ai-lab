@@ -1,0 +1,34 @@
+services:
+  werkzeug-server:
+    build: .
+    restart: unless-stopped
+    # Nur auf 127.0.0.1 der Kiste, nicht im Heimnetz und nicht im Tailscale-Netz
+    ports:
+      - "127.0.0.1:8090:8090"
+    env_file:
+      # Odoo-Zugang des Servers. Fehlt die Datei, startet der Server ohne Odoo (nur ping)
+      - path: .env
+        required: false
+    volumes:
+      # Liste der Aufrufer (nur Hashes), nur lesen
+      - ./zugang.json:/run/zugang/zugang.json:ro
+      # Protokoll aller Aufrufe
+      - protokoll:/daten
+    networks:
+      - odoo
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  # Netz des Odoo-Projekts: Der Server erreicht Odoo als http://odoo:8069
+  odoo:
+    name: odoo_default
+    external: true
+
+volumes:
+  protokoll:

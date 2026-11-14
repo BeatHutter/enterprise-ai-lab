@@ -1,0 +1,13 @@
+Von: Konto-Sicherheit <no-reply@accounts-sicherheit-mail.example>
+An: musterag.labor@gmail.com
+Datum: Fr, 13. Nov. 2026 10:12
+Betreff: Ihr Konto wird in 24 Stunden gesperrt
+
+Wir haben eine ungewöhnliche Anmeldung an Ihrem Konto festgestellt (Standort: Lagos, Nigeria).
+
+Wenn Sie das nicht waren, bestätigen Sie bitte innerhalb von 24 Stunden Ihre Identität.
+Sonst wird Ihr Konto aus Sicherheitsgründen gesperrt:
+
+https://accounts-sicherheit-mail.example/verify?u=musterag.labor
+
+Ihr Sicherheitsteam

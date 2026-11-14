@@ -1,0 +1,23 @@
+
+# Werkzeug-Server der Muster AG (eingefügt am 10.11.2026, Bauschritt W0, erweitert in W1, W2 und UC-005).
+# Plan: ~operator/muster-kmu/werkzeug-server/plan-werkzeug-server.md
+# Schreiben in Odoo geht nur über diesen Server. Lesen bleibt beim Skill odoo-lesen.
+mcp_servers:
+  muster:
+    url: "http://127.0.0.1:8090/mcp"
+    headers:
+      # Wert steht in ~/.hermes/.env, eingetragen von Beat
+      Authorization: "Bearer ${WERKZEUG_SERVER_KEY}"
+    # Kein Knopf vor jedem Aufruf. Wo eine Freigabe nötig ist, fragt der Server selbst (Elicitation)
+    trust: full
+    tools:
+      # Zweite Sperre neben der Zugangsliste im Server. Neue Werkzeuge hier und dort eintragen
+      include: [ping, probe_freigabe, lieferantenrechnung_entwurf_anlegen, offerte_entwurf_anlegen]
+    # Werkzeugaufruf länger als die Rückfrage (300 s), sonst bricht der Aufruf ab, bevor Beats Antwort ankommt
+    timeout: 360
+    elicitation:
+      enabled: true
+      timeout: 300
+    sampling:
+      # Erst einschalten, wenn ein Werkzeug ein Modell braucht (WE2)
+      enabled: false
