@@ -87,14 +87,11 @@ h1 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -.02
   transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
 }
 .btn svg { width: 20px; height: 20px; flex: none; }
-/* Hauptbutton (LinkedIn) in Smaragd, zweiter Button (GitHub) in Mint */
-.btn.primary { background: var(--green-600); border-color: var(--green-600); color: #fff; }
-.btn.primary:hover { background: var(--green-800); border-color: var(--green-800); }
-.btn.soft { background: var(--green-200); border-color: var(--green-200); color: var(--green-900); }
-.btn.soft:hover { background: #aee0ca; border-color: #aee0ca; }
+/* Beide Buttons (LinkedIn, GitHub) weiss mit feinem Rand, Farbe nur im LinkedIn-Logo */
+.btn.primary, .btn.soft { background: var(--surface); border-color: var(--border); color: var(--fg); }
+.btn.primary:hover, .btn.soft:hover { background: var(--green-50); border-color: var(--green-200); }
 .btn:hover { text-decoration: none; transform: translateY(-1px); box-shadow: var(--shadow-hover); }
 .btn .in { color: var(--green-800); }
-.btn.primary .in { color: #fff; }
 
 .notice {
   margin: 20px 0 0; padding: 14px 18px; border-radius: 12px; font-size: 15px;
