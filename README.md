@@ -4,13 +4,13 @@ An AI agent at work in a simulated company, with governance, human-in-the-loop a
 
 **Website:** [lab.bh-automation.cloud](https://lab.bh-automation.cloud) · [Deutsch](README.de.md) · [LinkedIn](https://www.linkedin.com/in/beat-hutter-2687414b/)
 
-I built this lab to find out, hands-on, what an AI agent can take over in a company today and what it takes to let it work safely. The agent handles quotes, supplier invoices, the monthly report and the inbox of a fictional Swiss manufacturer. It runs on a real ERP with two years of business data, and every use case is measured against expected results with deliberate traps built in.
+I built this lab to find out, hands-on, what an AI agent can take over in a company today and what it takes to let it work safely. The agent handles quotes, supplier invoices, the monthly report and the inbox of a fictitious Swiss manufacturer. It runs on a real ERP with two years of business data, and every use case is measured against expected results with deliberate traps built in.
 
 | | |
 | --- | --- |
 | **Time** | about 60 hours from an empty laptop to a running agent, 28 October to 13 November 2026 |
-| **Use cases in operation** | 5, each tested against expected values, including fraud and prompt-injection traps |
-| **Model cost** | USD 0.36 for all measured test runs together, about half a Swiss centime per supplier invoice |
+| **Use cases** | 5, built and evaluated against expected values, including fraud and prompt-injection traps |
+| **Model cost** | negligible during testing, below CHF 0.01 per quote or supplier invoice |
 | **Status** | runs daily, extended step by step |
 
 ## What this project shows
@@ -46,9 +46,9 @@ Details per run: [docs/erkenntnisse.md](docs/erkenntnisse.md) (German).
 
 ## Time and cost
 
-About 60 hours over 17 days, measured from timestamps of the coding sessions and my own notes. Roughly 40 percent went into the foundation (ERP, agent harness, isolated service user, network lock), the rest into architecture, test data, the KPI library, the tool server, the use cases and their tests.
+About 60 hours over 17 days, measured from timestamps of the coding sessions and my own notes. About half of the time passed before the first use case ran: ERP, agent harness, isolated service user, network lock, test data, architecture and KPI library. The rest went into the tool server, the use cases and their tests.
 
-Running costs are low: Odoo Community and the OCA modules are free of licence fees, the language model costs cents per day, the hardware is a business laptop. Not included is the subscription for the coding agent.
+Running costs are low: Odoo Community and the OCA modules are free of licence fees, the language model costs cents per day, the hardware is an old business laptop. With heavy daily use, token costs go up, which is why every run is recorded with its cost. Not included is the subscription for the coding agent.
 
 ## How it is built
 
@@ -92,6 +92,6 @@ Next steps: automated evals on every skill or model change, budgets per use case
 
 ## Notes
 
-Muster AG is a fictional company. All companies, people, addresses and figures are made up. This repository is a curated extract of the private working repository. Paths and host names are neutralised.
+Muster AG is a fictitious company. All companies, people, addresses and figures are fictitious. This repository is a curated extract of the private working repository. Paths and host names are neutralised.
 
 Code under the [MIT licence](LICENSE), texts and documentation under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). © 2026 Beat Hutter

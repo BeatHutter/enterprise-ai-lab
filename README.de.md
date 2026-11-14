@@ -4,13 +4,13 @@ Ein KI-Agent bei der Arbeit in einer simulierten Firma, mit Governance, Human-in
 
 **Website:** [lab.bh-automation.cloud](https://lab.bh-automation.cloud) · [English](README.md) · [LinkedIn](https://www.linkedin.com/in/beat-hutter-2687414b/)
 
-Ich habe dieses Labor gebaut, um praktisch herauszufinden, was ein KI-Agent in einem Unternehmen heute übernehmen kann und was es braucht, damit er sicher arbeitet. Der Agent erstellt Offerten, erfasst Lieferantenrechnungen, schreibt den Monatsbericht und bearbeitet den Posteingang eines erfundenen Schweizer Herstellers. Er arbeitet auf einem echten ERP mit zwei Jahren Geschäftsdaten. Jeder Anwendungsfall wird an Sollwerten gemessen, mit absichtlich eingebauten Fallen.
+Ich habe dieses Labor gebaut, um praktisch herauszufinden, was ein KI-Agent in einem Unternehmen heute übernehmen kann und was es braucht, damit er sicher arbeitet. Der Agent erstellt Offerten, erfasst Lieferantenrechnungen, schreibt den Monatsbericht und bearbeitet den Posteingang eines fiktiven Schweizer Herstellers. Er arbeitet auf einem echten ERP mit zwei Jahren Geschäftsdaten. Jeder Anwendungsfall wird an Sollwerten gemessen, mit absichtlich eingebauten Fallen.
 
 | | |
 | --- | --- |
 | **Zeit** | rund 60 Stunden vom leeren Laptop bis zum laufenden Agenten, 28. Oktober bis 13. November 2026 |
-| **Anwendungsfälle in Betrieb** | 5, jeder an Sollwerten geprüft, mit Fallen zu Betrug und Prompt Injection |
-| **Modellkosten** | USD 0.36 für alle gemessenen Testläufe zusammen, rund ein halber Rappen pro Lieferantenrechnung |
+| **Anwendungsfälle** | 5, gebaut und gegen Sollwerte evaluiert, mit Fallen zu Betrug und Prompt Injection |
+| **Modellkosten** | in der Testphase vernachlässigbar, unter einem Rappen pro Offerte oder Lieferantenrechnung |
 | **Stand** | läuft täglich, wird schrittweise ausgebaut |
 
 ## Was das Projekt zeigt
@@ -46,9 +46,9 @@ Einzelheiten pro Lauf: [docs/erkenntnisse.md](docs/erkenntnisse.md).
 
 ## Zeit und Kosten
 
-Rund 60 Stunden in 17 Tagen, gemessen an den Zeitstempeln der Entwicklungssitzungen und an meinen eigenen Notizen. Etwa 40 Prozent flossen ins Fundament (ERP, Agent-Harness, abgeschotteter Dienstbenutzer, Netzsperre), der Rest in Architektur, Testdaten, Kennzahlen-Bibliothek, Werkzeug-Server, Anwendungsfälle und Tests.
+Rund 60 Stunden in 17 Tagen, gemessen an den Zeitstempeln der Entwicklungssitzungen und an meinen eigenen Notizen. Rund die Hälfte der Zeit verging, bevor der erste Anwendungsfall lief: ERP, Agent-Harness, abgeschotteter Dienstbenutzer, Netzsperre, Testdaten, Architektur und Kennzahlen-Bibliothek. Der Rest floss in Werkzeug-Server, Anwendungsfälle und Tests.
 
-Die laufenden Kosten sind tief: Odoo Community und die OCA-Module kosten keine Lizenz, das Sprachmodell kostet Rappen pro Tag, die Hardware ist ein Business-Laptop. Nicht eingerechnet ist das Abo für den Entwicklungsagenten.
+Die laufenden Kosten sind tief: Odoo Community und die OCA-Module kosten keine Lizenz, das Sprachmodell kostet Rappen pro Tag, die Hardware ist ein alter Business-Laptop. Bei reger Nutzung im Alltag steigen die Tokenkosten, darum wird jeder Lauf mit Kosten aufgezeichnet. Nicht eingerechnet ist das Abo für den Entwicklungsagenten.
 
 ## Aufbau
 
@@ -88,6 +88,6 @@ Als Nächstes: automatisierte Evals bei jeder Änderung an Skill oder Modell, Bu
 
 ## Hinweise
 
-Die Muster AG ist eine erfundene Firma. Alle Firmen, Personen, Adressen und Zahlen sind erfunden. Dieses Repository ist ein ausgewählter Auszug aus dem privaten Arbeitsrepository. Pfade und Rechnernamen sind neutralisiert.
+Die Muster AG ist eine fiktive Firma. Alle Firmen, Personen, Adressen und Zahlen sind fiktiv. Dieses Repository ist ein ausgewählter Auszug aus dem privaten Arbeitsrepository. Pfade und Rechnernamen sind neutralisiert.
 
 Code unter der [MIT-Lizenz](LICENSE), Texte und Dokumentation unter [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.de). © 2026 Beat Hutter
