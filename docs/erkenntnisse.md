@@ -38,6 +38,7 @@ Kurz, je ein Satz, mit Herkunft.
 30. **Packliste statt Sperrliste.** Was öffentlich wird, steht ausdrücklich in einer Liste. Neue Dateien bleiben automatisch privat, und eine Prüfung mit gitleaks und Sperrwörtern fängt Reste ab (Portfolio-Publikation, 13.11.).
 31. **Farbvorgaben lassen sich messen.** Die Illustration wirkte grün, eine Auszählung der Farbtöne fand trotzdem Gelb im Lampenlicht und Türkis in Schatten. Ein kleines Skript macht eine Designregel prüfbar (13.11.).
 32. **Ein Wildcard-Eintrag im DNS versteckt Subdomains.** `chat` stand nirgends, weil `*` alles an den VPS schickt. Ein eigener Eintrag geht vor und ändert nur den einen Namen (13.11.).
+33. **Eine Schaufensterseite gegen den Code prüfen.** Ein Seitentext, der ohne Zugriff auf das Repository entstand, beschrieb den Fall «Lieferantenrechnung» mit Freigabe-Knopf und Halt bei neuer Bankverbindung. Beides gibt es so nicht: Entwürfe entstehen ohne Knopf (Schreibstufe 1), und das Werkzeug prüft keine Bankverbindung. Auch «in Betrieb» und «40 Prozent» hielten der Prüfung nicht stand. Jede Zahl und jeder Ablauf auf einer öffentlichen Seite gehört vor dem Veröffentlichen gegen Code und Messwerte geprüft (14.11.).
 
 ## Messwerte pro Testlauf
 

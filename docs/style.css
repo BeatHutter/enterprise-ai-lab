@@ -65,6 +65,7 @@ nav.top-nav a:hover, nav.top-nav a[aria-current="page"] { color: var(--green-800
 .hero-text { position: relative; z-index: 1; }
 .eyebrow { color: var(--green-800); font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 12px; }
 h1 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -.022em; margin: 0 0 18px; font-weight: 800; max-width: 22ch; }
+.subline { font-size: clamp(18px, 1.7vw, 21px); line-height: 1.4; font-weight: 600; color: var(--green-800); max-width: 48ch; margin: -6px 0 18px; }
 .lead { font-size: clamp(17px, 1.5vw, 18.5px); color: #3d454b; max-width: 54ch; margin: 0 0 14px; }
 .lead + .lead { margin-bottom: 24px; }
 .hero-art { margin: 0 -24px 0 -40px; position: relative; }
