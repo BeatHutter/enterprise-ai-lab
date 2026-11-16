@@ -34,6 +34,8 @@ body {
 a { color: var(--accent); text-underline-offset: 2px; }
 a:hover { text-decoration-thickness: 2px; }
 img { max-width: 100%; height: auto; }
+/* Einheitliche Breite für Fliesstext: gut lesbar, ein ruhiger rechter Rand */
+:root { --measure: 820px; }
 .wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
 @media (min-width: 760px) { .wrap { padding: 0 32px; } }
 
@@ -119,7 +121,7 @@ h1 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -.02
 section { padding: 48px 0; }
 section + section { border-top: 1px solid var(--border); }
 h2 { font-size: clamp(24px, 3vw, 32px); letter-spacing: -.015em; margin: 0 0 8px; }
-.section-lead { color: var(--muted); margin: 0 0 26px; max-width: 62ch; }
+.section-lead { color: var(--muted); margin: 0 0 26px; max-width: var(--measure); }
 h3 { font-size: 18px; margin: 0 0 6px; }
 
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -148,7 +150,7 @@ h3 { font-size: 18px; margin: 0 0 6px; }
 .small { font-size: 14px; color: var(--muted); }
 
 /* ---------- Fall von A bis Z ---------- */
-.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; counter-reset: s; max-width: 860px; }
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; counter-reset: s; max-width: var(--measure); }
 .steps li {
   counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 16px; align-items: start;
   background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px;
@@ -159,8 +161,8 @@ h3 { font-size: 18px; margin: 0 0 6px; }
 }
 .steps p { margin: 0; color: var(--muted); font-size: 16px; }
 .steps strong { color: var(--fg); }
-.trap { max-width: 860px; }
-.facts-line { max-width: 860px; margin: 18px 0 0; color: var(--muted); font-size: 16px; }
+.trap { max-width: var(--measure); }
+.facts-line { max-width: var(--measure); margin: 18px 0 0; color: var(--muted); font-size: 16px; }
 
 /* ---------- Ergebnisse ---------- */
 .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; }
@@ -175,7 +177,7 @@ table.results { width: 100%; border-collapse: collapse; font-size: 15.5px; }
 .results td:first-child, .results td.cost { color: var(--fg); }
 .results td.cost { width: 18%; }
 .cost-cards { margin-top: 22px; }
-.below-table { margin: 16px 0 0; color: var(--muted); font-size: 16px; max-width: 72ch; }
+.below-table { margin: 16px 0 0; color: var(--muted); font-size: 16px; max-width: var(--measure); }
 
 /* ---------- Gelernt ---------- */
 .lessons { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
@@ -194,7 +196,7 @@ table.results { width: 100%; border-collapse: collapse; font-size: 15.5px; }
 .facts h3 { margin: 0 0 12px; }
 
 /* Erklärung der Schichten unter dem Architekturbild */
-.layers-text { margin: 22px 0 28px; padding-left: 22px; color: var(--muted); font-size: 16px; max-width: 80ch; }
+.layers-text { margin: 22px 0 28px; padding-left: 22px; color: var(--muted); font-size: 16px; max-width: var(--measure); }
 .layers-text li { margin: 6px 0; }
 .layers-text li::marker { color: var(--green-600); font-weight: 700; }
 .layers-text strong { color: var(--fg); }
@@ -338,3 +340,8 @@ footer.bottom a:hover { color: var(--green-800); }
   .chip { white-space: normal; }
   .btn { width: 100%; justify-content: center; }
 }
+
+/* Sternchen bei Angaben mit Stand, Hinweis im Fuss */
+.asof-mark { color: var(--green-600); font-weight: 700; margin-left: 1px; }
+.asof { flex-basis: 100%; margin: 0; font-size: 14px; }
+.kpi strong .asof-mark { display: inline; margin: 0 0 0 1px; font-size: inherit; color: var(--green-600); }
