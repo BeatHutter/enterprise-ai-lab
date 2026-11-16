@@ -345,3 +345,4 @@ footer.bottom a:hover { color: var(--green-800); }
 .asof-mark { color: var(--green-600); font-weight: 700; margin-left: 1px; }
 .asof { flex-basis: 100%; margin: 0; font-size: 14px; }
 .kpi strong .asof-mark { display: inline; margin: 0 0 0 1px; font-size: inherit; color: var(--green-600); }
+.asof-note { margin: 18px 0 0; font-size: 14px; color: var(--muted); }
