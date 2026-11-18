@@ -14,7 +14,7 @@ Aufruf von Hand (zum Testen):
     python3 kosten_pruefen.py --bericht     immer eine Übersicht ausgeben
     python3 kosten_pruefen.py --datum 2026-11-13 --bericht
 
-Grenzen per Umgebung änderbar: KOSTEN_TAG_GRENZE, KOSTEN_LAUF_GRENZE (USD). Start nach OE3.
+Grenzen per Umgebung änderbar: KOSTEN_TAG_GRENZE, KOSTEN_LAUF_GRENZE (USD).
 Nur Python-Standardbibliothek.
 """
 

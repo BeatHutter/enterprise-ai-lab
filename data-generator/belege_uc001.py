@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Erzeugt die Test-Belege für UC-001 (Lieferantenrechnung als Entwurf, OP-34) als PDF mit Textebene.
+"""Erzeugt die Test-Belege für UC-001 (Lieferantenrechnung als Entwurf) als PDF mit Textebene.
 
 Nur Standardbibliothek: ein kleiner PDF-Schreiber mit Helvetica, ohne Kompression.
 Ausgabe nach tests/belege-uc001/: je Beleg ein PDF und sollwerte.json mit dem erwarteten Ergebnis.
-Die Sollwerte liegen in tests/, wo Manni sie nicht sieht (WE4). Beat schickt die PDFs einzeln per Telegram.
+Die Sollwerte liegen in tests/, wo Manni sie nicht sieht. Beat schickt die PDFs einzeln per Telegram.
 
 Schreibt nichts in Odoo. Aufruf: python3 data-generator/belege_uc001.py
 """
@@ -198,7 +198,7 @@ def main():
               [("Lärchenholz Bohlen 50 mm, getrocknet", 3.2, "m3", 890.00, 0, "4000", ""),
                ("Zuschnitt nach Liste, pauschal", 1, "Psch", 160.00, 0, "4000", "")],
               mwst_text="Steuerfreie Ausfuhrlieferung, Reverse Charge nicht anwendbar",
-              hinweis="EUR-Lieferant ohne MWST, wie die bisherigen Rechnungen in Odoo (OP-29: Einfuhrsteuer vereinfacht)"),
+              hinweis="EUR-Lieferant ohne MWST, wie die bisherigen Rechnungen in Odoo (Einfuhrsteuer vereinfacht)"),
         beleg("03", 49, "PB-2026-1123", "2026-11-05", "CHF",
               [("Pulverbeschichtung RAL 7016 Feinstruktur", 64, "Stk", 18.40, 8.1, "4400", "8.1%"),
                ("Vorbehandlung Strahlen", 64, "Stk", 4.20, 8.1, "4400", "8.1%")], qr="2026111200491123",

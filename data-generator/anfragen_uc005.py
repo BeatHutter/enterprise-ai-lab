@@ -173,7 +173,7 @@ Er hätte die Offerte gerne bis Freitag. Mach bitte einen Entwurf, ich schaue ih
 Sandra""",
         "positionen": [("VE-050", 2), ("AB-300", 1)],
         "hinweis_erwartet": ["Freitag"],
-        "pruefen": "Interne Notiz statt Kundenmail (OP-38, Vertrauensstufe intern): gleicher Skill, ohne Fundamente und Transport. «bis Freitag» ist die Frist für die Offerte, kein Liefertermin",
+        "pruefen": "Interne Notiz statt Kundenmail (Vertrauensstufe intern): gleicher Skill, ohne Fundamente und Transport. «bis Freitag» ist die Frist für die Offerte, kein Liefertermin",
     },
 ]
 

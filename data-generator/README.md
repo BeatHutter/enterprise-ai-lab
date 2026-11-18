@@ -1,34 +1,23 @@
-# Datengenerator
+# Data generator
 
-Legt die Geschichte der Muster AG über die Odoo-Schnittstelle an: Kunden, Lieferanten, Artikel, Offerten, Rechnungen, Zahlungen und Monatsbuchungen von Januar 2025 bis Oktober 2026. Grundlage ist [docs/drehbuch-muster-ag.md](../docs/drehbuch-muster-ag.md).
+Builds the business history of Muster AG in Odoo through its API: customers, suppliers, items, quotes, invoices, payments and monthly postings from January 2025 to October 2026. The story behind it is in the [scenario](../docs/drehbuch-muster-ag.md).
 
-## Stand
+Five anomalies are built in on purpose, such as a supplier price increase, a customer who pays later and later, and an invoice paid twice. They are the test cases P1 to P5 in [tests/prueffaelle.md](../tests/prueffaelle.md). Nothing in Odoo hints at them; the agent has to find them on its own.
 
-Wird in Etappen gebaut, siehe Detailplan Testdaten (intern). Fertig: Etappe 1 (Verbindungstest), Etappe 2 (Stammdaten), Etappe 3 (Bewegungen bis 31.8.2025), Etappe 4a (September bis Dezember 2025), Etappe 4b (Januar bis Oktober 2026 mit den Prüffällen). Etappe 5 (Prüfskript `../tests/pruefskript.py` für P1 bis P5) ist fertig.
+## Properties
 
-## Bedienung
+- Python standard library only, Odoo via XML-RPC with an API key
+- Reproducible: a fixed random seed produces the same data on every run
+- Dry run by default; writes only with `--schreiben` and skips what already exists
+- Master data in `daten/` as CSV. The column `notiz` is for humans only and never reaches Odoo
 
-Nur Python-Standardbibliothek, keine Zusatzpakete. Aufruf im Ordner `data-generator`:
+## Steps
 
-| Etappe | Befehl | Schreibt in Odoo |
+| Step | Command | Writes to Odoo |
 | --- | --- | --- |
-| 1 Verbindungstest | `python3 etappe1_verbindung.py` | nein |
-| 2 Stammdaten, Trockenlauf | `python3 etappe2_stammdaten.py` | nein |
-| 2 Stammdaten | `python3 etappe2_stammdaten.py --schreiben` | ja, nur Fehlendes |
-| 3 Trockenlauf | `python3 etappe3_4_bewegungen.py --bis 2025-08-31` | nein |
-| 3 Schreiben | `python3 etappe3_4_bewegungen.py --bis 2025-08-31 --schreiben` | ja, Vorhandenes wird übersprungen |
-| 3 Kontrolle | `python3 etappe3_4_bewegungen.py --bis 2025-08-31 --kontrolle` | nein |
+| Connection test | `python3 etappe1_verbindung.py` | no |
+| Master data | `python3 etappe2_stammdaten.py [--schreiben]` | with `--schreiben` |
+| Transactions | `python3 etappe3_4_bewegungen.py --bis 2026-10-31 [--schreiben]` | with `--schreiben` |
+| Control | `python3 etappe3_4_bewegungen.py --bis 2026-10-31 --kontrolle` | no |
 
-Die Vorgaben stehen in `daten/` als CSV. Die Spalte «notiz» ist nur für uns und kommt nie nach Odoo.
-
-## Anforderungen
-
-- Python-Skript, spricht Odoo über XML-RPC an
-- Zugang über einen API-Schlüssel, nie über das Passwort
-- Wiederholbar: ein fester Zufallsstartwert (Seed), damit jeder Lauf dieselben Daten erzeugt
-- Vor jedem Lauf eine Odoo-Sicherung ziehen
-- Nach dem Lauf müssen die Prüffälle in [tests/prueffaelle.md](../tests/prueffaelle.md) in den Odoo-Berichten sichtbar sein
-
-## Konfiguration
-
-`.env.example` nach `.env` kopieren und den API-Schlüssel aus 1Password eintragen. Die `.env` wird nie committet.
+`anfragen_uc005.py` and `belege_uc001.py` generate the test sets for quotes and supplier invoices with their expected values. `tests/pruefskript.py` recalculates P1 to P5 from Odoo data only, without using anything from the generator.

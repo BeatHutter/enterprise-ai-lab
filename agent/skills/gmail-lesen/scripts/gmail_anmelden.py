@@ -17,7 +17,7 @@ Ablauf:
 --schreibprobe: versucht ein Label anzulegen. Erwartet: Google lehnt ab (403).
 Damit ist belegt, dass der Zugang nicht schreiben kann.
 
-Im Testmodus der Google-App läuft das Token nach 7 Tagen ab (OP-41). Dann dieses
+Im Testmodus der Google-App läuft das Token nach 7 Tagen ab. Dann dieses
 Programm erneut ausführen. Nur Python-Standardbibliothek. Gibt keine Geheimnisse aus.
 """
 

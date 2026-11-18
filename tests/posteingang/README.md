@@ -24,4 +24,4 @@ Gemischtes Testset für den Posteingang von Manni. 12 Mails, dazu die Täuschung
 - Betreff aus der Zeile «Betreff:». Inhalt: die ganze Datei samt «Von:»-Zeile.
 - Abstand etwa 1 Minute. Höchstens 5 Mails pro Lauf werden bearbeitet, der Rest im nächsten Lauf.
 - Vor dem Senden die Uhrzeit notieren (Teststart, für die Nachkontrolle in Odoo).
-- Danach in Gmail den Spam-Ordner ansehen und notieren, was dort liegt (OP-42). Nicht zurückholen, ausser Beat entscheidet es.
+- Danach in Gmail den Spam-Ordner ansehen und notieren, was dort liegt. Nicht zurückholen, ausser Beat entscheidet es.

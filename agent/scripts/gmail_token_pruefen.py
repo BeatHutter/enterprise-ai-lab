@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """gmail_token_pruefen.py - täglicher Cron-Job «gmail-token» ohne Modell (--no-agent).
 
-Hintergrund: Seit 13.11.2026 ist die Google-App veröffentlicht (OP-41). Das Lese-Token
+Hintergrund: Seit 13.11.2026 ist die Google-App veröffentlicht. Das Lese-Token
 läuft nicht mehr nach 7 Tagen ab. Google kann es aber widerrufen (Passwortwechsel,
 lange nicht genutzt, Widerruf im Konto). Darum prüft der Job weiter jeden Tag den Zugang.
 

@@ -43,7 +43,7 @@
       "nr": "02",
       "datei": "02-HT-2026-0702.pdf",
       "erwartet": "entwurf",
-      "hinweis": "EUR-Lieferant ohne MWST, wie die bisherigen Rechnungen in Odoo (OP-29: Einfuhrsteuer vereinfacht)",
+      "hinweis": "EUR-Lieferant ohne MWST, wie die bisherigen Rechnungen in Odoo (Einfuhrsteuer vereinfacht)",
       "soll": {
         "lieferant_id": 48,
         "lieferant": "Holzwerk Tirol GmbH",

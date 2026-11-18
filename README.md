@@ -11,12 +11,12 @@ I built this lab to find out, hands-on, what an AI agent can take over in a comp
 | **Time** | about 60 hours from an empty laptop to a running agent, 28 October to 13 November 2026 |
 | **Use cases** | 5, built and evaluated against expected values, including fraud and prompt-injection traps |
 | **Model cost** | negligible during testing, below CHF 0.01 per quote or supplier invoice |
-| **Status** | runs daily, extended step by step |
+| **Status** | work in progress, extended step by step |
 
 ## What this project shows
 
 - **From business process to AI use case.** A catalogue of 23 use cases across sales, purchasing, accounting and HR, each with process, roles, write level and status. See [docs/use-cases.md](docs/use-cases.md).
-- **Architecture and governance for agents.** One agent with skills, read-only access to the ERP, writing only through narrow tools on a dedicated MCP server, approval by button for anything consequential. See [docs/architektur-agenten.md](docs/architektur-agenten.md).
+- **Architecture and governance for agents.** One agent with skills, read-only access to the ERP, writing only through narrow tools on a dedicated MCP server, approval by button for anything consequential. See [architecture](docs/architecture.md) and the [decisions](docs/decisions.md) behind it.
 - **Measurable quality.** Expected values are fixed before each run. The test data contains anomalies the agent has to find on its own, and the test sets contain traps it must not fall for.
 - **Security awareness.** Forged invoices, fake bank details and hidden instructions in emails are part of every test set. The agent may read them, but they cannot make it act.
 - **Cost awareness.** Every run is traced with tokens and cost. A daily alert reports when a day or a run exceeds its budget.
@@ -48,7 +48,7 @@ Details per run: [docs/erkenntnisse.md](docs/erkenntnisse.md) (German).
 
 About 60 hours over 17 days, measured from timestamps of the coding sessions and my own notes. About half of the time passed before the first use case ran: ERP, agent harness, isolated service user, network lock, test data, architecture and KPI library. The rest went into the tool server, the use cases and their tests.
 
-Running costs are low: Odoo Community and the OCA modules are free of licence fees, the language model costs cents per day, the hardware is an old business laptop. With heavy daily use, token costs go up, which is why every run is recorded with its cost. Not included is the subscription for the coding agent.
+Running costs are low: Odoo Community and the OCA modules are free of licence fees, the language model costs cents per day, the hardware is a separate business laptop. With heavy daily use, token costs go up, which is why every run is recorded with its cost. Not included are the subscriptions for the development tools (Claude, Google Antigravity), 20 dollars per month each.
 
 ## How it is built
 
@@ -70,11 +70,11 @@ flowchart TB
 
 ## Repository guide
 
-Domain content is in German, the language of the simulated company.
+Each folder has a short README in English. Domain content is in German, the language of the simulated company.
 
 | Folder | Content |
 | --- | --- |
-| [docs/](docs/) | Architecture, use case catalogue, scenario of Muster AG, lessons and measurements. Also the source of the website |
+| [docs/](docs/) | [Architecture](docs/architecture.md), [decisions](docs/decisions.md), use case catalogue, scenario of Muster AG, lessons and measurements. Also the source of the website |
 | [werkzeug-server/](werkzeug-server/) | MCP tool server in Python and Docker: write tools for quotes and supplier invoices, validation rules, approval by elicitation, audit log, tests |
 | [agent/](agent/) | Agent setup: persona (`SOUL-hauptagent.md`), skills with their scripts, scheduled jobs (inbox pre-check without a model, daily cost alert), MCP configuration |
 | [kennzahlen/](kennzahlen/) | KPI library as a semantic layer: one fixed definition and calculation per figure, reconciled against Odoo reports |
@@ -86,7 +86,7 @@ Glossary: Werkzeug-Server = tool server · Kennzahl = KPI · Drehbuch = scenario
 
 ## Technology
 
-Hermes Agent (open source) as harness, running as a service under its own Linux user with a network lock. Model Context Protocol for tool access, tool server in Docker. Language models swappable per task, including Anthropic Claude and DeepSeek. Odoo 18 Community with Swiss localisation and OCA modules. Gmail via OAuth, read-only. Langfuse (cloud, EU) for tracing and cost. Ubuntu 24.04 on WSL2, Docker, Tailscale for remote access, no open ports. Development with Claude Code.
+Hermes Agent (open source) as harness, running as a service under its own Linux user with a network lock. Model Context Protocol for tool access, tool server in Docker. Language models swappable per task, including Anthropic Claude and DeepSeek. Odoo 18 Community with Swiss localisation and OCA modules. Gmail via OAuth, read-only. Langfuse (cloud, EU) for tracing and cost. Ubuntu 24.04 on WSL2, Docker, Tailscale for remote access, no open ports. Development with Claude Code, Claude Cowork and Google Antigravity.
 
 Next steps: automated evals on every skill or model change, budgets per use case, approval workflows for postings, CRM. Roadmap on the [website](https://lab.bh-automation.cloud/en/#roadmap).
 
@@ -94,4 +94,4 @@ Next steps: automated evals on every skill or model change, budgets per use case
 
 Muster AG is a fictitious company. All companies, people, addresses and figures are fictitious. This repository is a curated extract of the private working repository. Paths and host names are neutralised.
 
-Code under the [MIT licence](LICENSE), texts and documentation under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). © 2026 Beat Hutter
+Code under the [MIT licence](LICENSE), texts and documentation under [CC BY 4.0](LICENSE-docs). © 2026 Beat Hutter

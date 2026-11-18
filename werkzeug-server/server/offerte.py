@@ -1,7 +1,7 @@
 """UC-005: Offerte (Angebot) als Entwurf anlegen (Schreibstufe 1, ohne Freigabe).
 
 Manni liest die Anfrage und übergibt Kunde, Artikel und Mengen. Preise und Rabatte setzt Odoo
-aus der Preisliste des Kunden. Es gibt bewusst keinen Parameter für Preis oder Rabatt (OE3).
+aus der Preisliste des Kunden. Es gibt bewusst keinen Parameter für Preis oder Rabatt.
 Versenden und Bestätigen bleiben beim Menschen (Stufe 3).
 Plan: werkzeug-server/plan-werkzeug-server.md, Etappe UC-005.
 """

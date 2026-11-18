@@ -11,12 +11,12 @@ Ich habe dieses Labor gebaut, um praktisch herauszufinden, was ein KI-Agent in e
 | **Zeit** | rund 60 Stunden vom leeren Laptop bis zum laufenden Agenten, 28. Oktober bis 13. November 2026 |
 | **Anwendungsfälle** | 5, gebaut und gegen Sollwerte evaluiert, mit Fallen zu Betrug und Prompt Injection |
 | **Modellkosten** | in der Testphase vernachlässigbar, unter einem Rappen pro Offerte oder Lieferantenrechnung |
-| **Stand** | läuft täglich, wird schrittweise ausgebaut |
+| **Stand** | Work in Progress, wird schrittweise ausgebaut |
 
 ## Was das Projekt zeigt
 
 - **Vom Geschäftsprozess zum KI-Anwendungsfall.** Ein Katalog mit 23 Anwendungsfällen aus Verkauf, Einkauf, Buchhaltung und Personal, je mit Prozess, Rollen, Schreibstufe und Stand. Siehe [docs/use-cases.md](docs/use-cases.md).
-- **Architektur und Governance für Agenten.** Ein Agent mit Skills, im ERP nur Leserechte, Schreiben nur über enge Werkzeuge eines eigenen MCP-Servers, Freigabe per Knopf für alles Folgenreiche. Siehe [docs/architektur-agenten.md](docs/architektur-agenten.md).
+- **Architektur und Governance für Agenten.** Ein Agent mit Skills, im ERP nur Leserechte, Schreiben nur über enge Werkzeuge eines eigenen MCP-Servers, Freigabe per Knopf für alles Folgenreiche. Siehe [Architektur](docs/architecture.md) und die [Entscheide](docs/decisions.md) dahinter (englisch).
 - **Messbare Qualität.** Die Sollwerte stehen vor jedem Lauf fest. In den Testdaten stecken Auffälligkeiten, die der Agent selbst finden muss, und in den Testsets Fallen, auf die er nicht hereinfallen darf.
 - **Sicherheitsbewusstsein.** Gefälschte Rechnungen, falsche Bankverbindungen und versteckte Anweisungen in Mails gehören zu jedem Testset. Der Agent darf sie lesen, aber sie bringen ihn nicht zum Handeln.
 - **Kostenbewusstsein.** Jeder Lauf wird mit Tokens und Kosten aufgezeichnet. Ein täglicher Alarm meldet, wenn ein Tag oder ein Lauf sein Budget überschreitet.
@@ -48,7 +48,7 @@ Einzelheiten pro Lauf: [docs/erkenntnisse.md](docs/erkenntnisse.md).
 
 Rund 60 Stunden in 17 Tagen, gemessen an den Zeitstempeln der Entwicklungssitzungen und an meinen eigenen Notizen. Rund die Hälfte der Zeit verging, bevor der erste Anwendungsfall lief: ERP, Agent-Harness, abgeschotteter Dienstbenutzer, Netzsperre, Testdaten, Architektur und Kennzahlen-Bibliothek. Der Rest floss in Werkzeug-Server, Anwendungsfälle und Tests.
 
-Die laufenden Kosten sind tief: Odoo Community und die OCA-Module kosten keine Lizenz, das Sprachmodell kostet Rappen pro Tag, die Hardware ist ein alter Business-Laptop. Bei reger Nutzung im Alltag steigen die Tokenkosten, darum wird jeder Lauf mit Kosten aufgezeichnet. Nicht eingerechnet ist das Abo für den Entwicklungsagenten.
+Die laufenden Kosten sind tief: Odoo Community und die OCA-Module kosten keine Lizenz, das Sprachmodell kostet Rappen pro Tag, die Hardware ist ein separater Business-Laptop. Bei reger Nutzung im Alltag steigen die Tokenkosten, darum wird jeder Lauf mit Kosten aufgezeichnet. Nicht eingerechnet sind die Abos für die Entwicklungswerkzeuge (Claude, Google Antigravity), je 20 Dollar pro Monat.
 
 ## Aufbau
 
@@ -70,9 +70,11 @@ flowchart TB
 
 ## Wegweiser durch das Repository
 
+Jeder Ordner hat eine kurze README auf Englisch. Der Fachinhalt ist deutsch, in der Sprache der simulierten Firma.
+
 | Ordner | Inhalt |
 | --- | --- |
-| [docs/](docs/) | Architektur, Use-Case-Katalog, Drehbuch der Muster AG, Erkenntnisse und Messwerte. Dazu die Quelle der Website |
+| [docs/](docs/) | [Architektur](docs/architecture.md), [Entscheide](docs/decisions.md), Use-Case-Katalog, Drehbuch der Muster AG, Erkenntnisse und Messwerte. Dazu die Quelle der Website |
 | [werkzeug-server/](werkzeug-server/) | MCP-Werkzeug-Server in Python und Docker: Schreibwerkzeuge für Offerten und Lieferantenrechnungen, Prüfregeln, Freigabe per Rückfrage (Elicitation), Protokoll, Tests |
 | [agent/](agent/) | Einrichtung des Agenten: Rolle (`SOUL-hauptagent.md`), Skills mit ihren Skripten, Zeitpläne (Vorprüfung des Posteingangs ohne Modell, täglicher Kostenalarm), MCP-Konfiguration |
 | [kennzahlen/](kennzahlen/) | Kennzahlen-Bibliothek als semantischer Layer: pro Kennzahl eine feste Bedeutung und ein fester Rechenweg, abgeglichen mit den Odoo-Berichten |
@@ -82,7 +84,7 @@ flowchart TB
 
 ## Technik
 
-Hermes Agent (Open Source) als Harness, als Dienst unter eigenem Linux-Benutzer mit Netzsperre. Model Context Protocol für den Werkzeugzugriff, Werkzeug-Server in Docker. Sprachmodelle pro Aufgabe austauschbar, darunter Anthropic Claude und DeepSeek. Odoo 18 Community mit Schweizer Lokalisierung und OCA-Modulen. Gmail über OAuth, nur lesend. Langfuse (Cloud, EU) für Tracing und Kosten. Ubuntu 24.04 auf WSL2, Docker, Tailscale für den Fernzugriff, keine offenen Ports. Entwicklung mit Claude Code.
+Hermes Agent (Open Source) als Harness, als Dienst unter eigenem Linux-Benutzer mit Netzsperre. Model Context Protocol für den Werkzeugzugriff, Werkzeug-Server in Docker. Sprachmodelle pro Aufgabe austauschbar, darunter Anthropic Claude und DeepSeek. Odoo 18 Community mit Schweizer Lokalisierung und OCA-Modulen. Gmail über OAuth, nur lesend. Langfuse (Cloud, EU) für Tracing und Kosten. Ubuntu 24.04 auf WSL2, Docker, Tailscale für den Fernzugriff, keine offenen Ports. Entwicklung mit Claude Code, Claude Cowork und Google Antigravity.
 
 Als Nächstes: automatisierte Evals bei jeder Änderung an Skill oder Modell, Budgets pro Anwendungsfall, Freigabe-Abläufe fürs Buchen, CRM. Roadmap auf der [Website](https://lab.bh-automation.cloud/#roadmap).
 
@@ -90,4 +92,4 @@ Als Nächstes: automatisierte Evals bei jeder Änderung an Skill oder Modell, Bu
 
 Die Muster AG ist eine fiktive Firma. Alle Firmen, Personen, Adressen und Zahlen sind fiktiv. Dieses Repository ist ein ausgewählter Auszug aus dem privaten Arbeitsrepository. Pfade und Rechnernamen sind neutralisiert.
 
-Code unter der [MIT-Lizenz](LICENSE), Texte und Dokumentation unter [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.de). © 2026 Beat Hutter
+Code unter der [MIT-Lizenz](LICENSE), Texte und Dokumentation unter [CC BY 4.0](LICENSE-docs). © 2026 Beat Hutter
