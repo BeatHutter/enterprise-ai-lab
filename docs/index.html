@@ -37,6 +37,7 @@
       <div class="actions">
         <a class="btn primary" href="https://www.linkedin.com/in/beat-hutter-2687414b/" target="_blank" rel="noopener"><svg class="in" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>LinkedIn</a>
         <a class="btn soft" href="https://github.com/BeatHutter/enterprise-ai-lab" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Projekt auf GitHub</a>
+        <a class="btn-link" href="#live">Live-Vorführung<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       </div>
       <figure class="hero-art">
@@ -114,6 +115,29 @@
           <h3>Warum DeepSeek</h3>
           <p>Modelle werden je Aufgabe verglichen und ausgewählt. DeepSeek ist ein starkes Modell für agentische Workflows: zuverlässig beim Aufrufen von Werkzeugen und sehr günstig. Nach meiner Einschätzung bietet es derzeit das beste Preis-Leistungs-Verhältnis für diese Art von Automation. Für ein echtes KMU kommt es deshalb ebenfalls in Frage, dann über einen europäischen oder amerikanischen Betreiber. Im Labor läuft es direkt über die Server von DeepSeek. Das ist vertretbar, weil im Labor nur mit fiktiven Daten gearbeitet wird.</p>
         </div>
+      </div>
+    </section>
+
+    <section id="live">
+      <h2>Live-Vorführung: Manni im Chat</h2>
+      <p class="section-lead">Manni ist der KI-Agent des Labors. Im Chat arbeitet er mit den fiktiven Daten der Muster AG in einer Testumgebung des ERP (Odoo): Er liest Zahlen, erstellt Berichte und legt Offerten als Entwurf an. Jeden Arbeitsschritt sieht man live.</p>
+      <div class="card live">
+        <div class="live-cta">
+          <a class="btn primary" href="https://manni.bh-automation.cloud" target="_blank" rel="noopener">Chat öffnen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <span class="live-url">manni.bh-automation.cloud</span>
+        </div>
+        <p>Zugang nur auf Einladung. Sie melden sich mit Ihrer Mailadresse an und erhalten einen Einmalcode (Cloudflare Access). Noch nicht eingeladen? Schreiben Sie mir kurz per <a href="mailto:beat.b.hutter@gmail.com">Mail</a> oder über <a href="https://www.linkedin.com/in/beat-hutter-2687414b/" target="_blank" rel="noopener">LinkedIn</a>.</p>
+        <details>
+          <summary>Was bewusst eingeschränkt ist und warum</summary>
+          <ul>
+            <li><strong>Nur auf Einladung:</strong> Manni läuft auf einem Laborrechner, und jede Anfrage verursacht Kosten beim Sprachmodell.</li>
+            <li><strong>Weniger Werkzeuge als im Betrieb (Least Privilege):</strong> kein Surfen im Web, keine Zeitpläne, und Manni kann sich nichts dauerhaft merken. Besucher sollen den Agenten nicht verändern können.</li>
+            <li><strong>Schreiben nur als Entwurf:</strong> Offerten legt Manni im ERP (Odoo) als Entwurf an. Bestätigt und verschickt werden sie nur von einem Menschen (Human-in-the-Loop). Test-Entwürfe aus Vorführungen werden danach wieder entfernt.</li>
+            <li><strong>Begrenzte Nachrichten:</strong> höchstens 20 pro Stunde und Person.</li>
+            <li><strong>Verfügbarkeit:</strong> Der Laborrechner läuft nicht rund um die Uhr. Für eine sichere Vorführung vereinbaren wir am besten einen Termin.</li>
+          </ul>
+        </details>
+        <p class="small">Hinweis: Die Vorführung dient nur der Demonstration. Antworten eines KI-Agenten können Fehler enthalten und sind keine Beratung. Bitte geben Sie keine echten Personen- oder Firmendaten ein. Gespräche werden gespeichert und von einem Sprachmodell verarbeitet, Details in der <a href="datenschutz.html#chat">Datenschutzerklärung, Abschnitt 6</a>.</p>
       </div>
     </section>
 

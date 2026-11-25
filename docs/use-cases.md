@@ -80,7 +80,7 @@ Grundhaltung: Der grösste Nutzen liegt meist in Stufe 1. Der Agent übernimmt d
 
 ## Übersicht
 
-Erfasst ab 10.11.2026, Umsetzungsgrad nachgeführt am 18.11.2026. UC-001 bis UC-014 schreiben in Odoo und beschränken sich auf die installierten Module (Rechnungsstellung, Verkauf, Einkauf, Kontakte). Erster Leitfall für den Werkzeug-Server war UC-001.
+Erfasst ab 10.11.2026, Umsetzungsgrad nachgeführt am 23.11.2026. UC-001 bis UC-014 schreiben in Odoo und beschränken sich auf die installierten Module (Rechnungsstellung, Verkauf, Einkauf, Kontakte). Erster Leitfall für den Werkzeug-Server war UC-001.
 
 | ID | Titel | Prozess | Komplexität | Schreibstufe | Umsetzungsgrad | Offene Punkte |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -107,6 +107,45 @@ Erfasst ab 10.11.2026, Umsetzungsgrad nachgeführt am 18.11.2026. UC-001 bis UC-
 | UC-021 | Personal-Dokumente: Verträge (GAV Metallbau) & Arbeitszeugnisse | U3 | Basis | – | Konzept | Desktop-KI (Word-Vorlagen, Schweizer Codierung) |
 | UC-022 | Baustellenfoto zu Social Post (Bluesky) und Website-Referenz | K1 | Integration | 1 | Konzept | Foto aus Montage/Werkstatt -> Textentwurf |
 | UC-023 | Produktentwicklung am Desktop (z. B. Solar-Velounterstand) | K3 | Basis | – | Konzept | Desktop-KI (Pflichtenheft, SIA-Normen, Excel-Kalkulation) |
+| UC-024 | Monatsbericht mit Kommentar | U2 | Integration | – | Proof of Concept (9.11.2026) | festes Format und Tabellen aus einem Skript (spätere Vorhaben) |
+| UC-025 | Fragen zu Geschäftszahlen beantworten | U2 | Integration | – | Umgesetzt (seit 3.11.2026) | |
+| UC-026 | Debitorenkontrolle | K5 | Integration | – | Proof of Concept (9.11.2026) | Altersstufen |
+| UC-027 | Lieferantenzahlungen auf Auffälligkeiten prüfen | U2 | Integration | – | Proof of Concept (9.11.2026) | |
+| UC-028 | Pipeline-Bericht pro Woche | K2 | Integration | – | Konzept, in Arbeit (Etappe CRM, K3) | Leserechte und Testdaten stehen (23.11.2026) |
+| UC-029 | Akquise Neukunde: von der Mail zur Verkaufschance | K2 | Integration | 1 | Konzept (Etappe CRM, K4) | drei neue Werkzeuge im Werkzeug-Server |
+
+## Leistungsübersicht: was Manni für die Muster AG tut
+
+Sicht nach Geschäftsprozessen, nicht nach Funktionen. Eine Zeile pro Prozess, den Manni ganz oder teilweise übernimmt. **Goldene Quelle** für die Seite [leistungsuebersicht.html](leistungsuebersicht.html). Die Seite wird mit `python3 docs/leistungsuebersicht.py` aus dieser Tabelle und der Übersicht oben erzeugt, nie von Hand geändert. Nachführen bei jedem Testlauf und am Ende jeder Etappe, im selben Commit.
+
+Zuletzt nachgeführt: 23.11.2026
+
+**Ordnung:** nach Geschäftsprozess, nicht nach Kanal. Jeder Prozess steht genau einmal, in seinem Fachbereich. Der Kanal (Mail, Chat, Zeitplan) steht beim Auslöser. Unter «Posteingang» steht nur, was am Postfach selbst geschieht: sichten, einordnen, aussortieren, abwehren und an den zuständigen Prozess übergeben. Löst eine Mail einen Fachprozess aus, steht dieser in seinem Bereich mit dem Auslöser «über den Posteingang» (Entscheid Beat 23.11.2026).
+
+Stand: **Läuft** (im Labor dauerhaft in Betrieb) · **Getestet** (Proof of Concept mit Messwerten, startet auf Auftrag) · **In Arbeit** (wird gerade gebaut) · **Geplant** (beschrieben, Etappe festgelegt). «Teil von» nennt den Prozess, aus dem ein Prozess abgeleitet ist.
+
+| Bereich | Geschäftsprozess | Teil von | Auslöser | Was Manni tut | Mensch entscheidet | Stand | Beleg | UC |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Posteingang | Posteingang sichten, einordnen und übergeben | | Neue Mail, Prüfung alle 5 Minuten | Liest jede neue Mail (nur lesend), ordnet sie einer von 15 Kategorien zu, sortiert Newsletter, Werbung und Spam aus, führt ein Protokoll und übergibt an den zuständigen Prozess: Offerte und Neukunde im Verkauf, Mahnung bei den Kreditoren | Nichts Routinemässiges. Heikles geht sofort an Beat | Läuft | Test 2: Kategorie 11 von 12 richtig | UC-015 |
+| Posteingang | Täuschung und Betrug abwehren | Posteingang sichten, einordnen und übergeben | Jede Mail | Erkennt Phishing, gefälschte Absender, neue Bankverbindungen und versteckte Anweisungen an die KI. Handelt dann nicht und meldet sofort | Beat prüft und entscheidet | Läuft | Test 2: keine der drei Fallen erreichte das Bearbeiten | UC-015, UC-014 |
+| Posteingang | Übrige Mails zusammenfassen mit Vorschlag | Posteingang sichten, einordnen und übergeben | Bestellung, Reklamation, Bewerbung, Behörde, Anfrage von Dritten, solange dafür kein eigener Prozess besteht | Fasst das Anliegen in zwei Sätzen zusammen, schlägt in Odoo nach, macht einen Vorschlag und schätzt die Dringlichkeit | Zuständige Person handelt | Läuft | Test 2 | UC-015 |
+| Verkauf und CRM | Offerte als Entwurf aus einer Anfrage | | Mail eines bekannten Kunden (über den Posteingang) oder Auftrag im Chat | Erkennt Kunde, Artikel und Mengen, legt das Angebot mit Preisen aus Odoo über den Werkzeug-Server als Entwurf an und meldet getroffene Annahmen | Innendienst prüft und verschickt | Läuft | Chat: 10 von 10 Test-Anfragen richtig. Mail: 7 von 7 Angeboten wie Sollwert | UC-005, UC-015 |
+| Verkauf und CRM | Rückfrage bei unvollständiger Anfrage | Offerte als Entwurf aus einer Anfrage | Anfrage ohne Menge oder ohne passenden Artikel | Rät keine Menge. Schreibt den Entwurf einer höflichen Rückfrage an den Kunden | Verkauf verschickt die Rückfrage | Läuft | Regel im Skill, noch ohne eigenen Test | UC-005, UC-015 |
+| Verkauf und CRM | Anfrage eines Neukunden bearbeiten | | Mail eines unbekannten Absenders (über den Posteingang) | Legt kein Angebot an. Fasst Anliegen, Adresse und passende Artikel zusammen und schlägt vor: Kunde anlegen, dann Offerte | Verkauf legt den Kunden an | Läuft | Test 1: Neukunde richtig erkannt | UC-015 |
+| Verkauf und CRM | Verkaufschance anlegen und qualifizieren | Anfrage eines Neukunden bearbeiten | Neukunden-Anfrage | Ausbau: legt die Verkaufschance im CRM an, prüft Dubletten, recherchiert, schlägt die Qualifizierung vor (auch: muss die Gemeinde ausschreiben?), teilt nach Regel zu und plant die nächste Aufgabe. Danach Angebot als Entwurf | Verkauf qualifiziert, gewinnt oder verliert | Geplant | – | UC-029 |
+| Verkauf und CRM | Pipeline-Bericht pro Woche | | Zeitplan, wöchentlich | Liest die Verkaufschancen im CRM: offene Chancen nach Stufe, gewichteter Wert, Abschlüsse und Verluste, liegengebliebene Chancen, Dubletten | Geschäftsleitung entscheidet Massnahmen | In Arbeit | Nullmessung ohne Skill: Prüffälle C1 bis C4 alle erkannt, keine Fehlalarme, Zahlen richtig, 3 Min., USD 0.02 | UC-028 |
+| Verkauf und CRM | Offerten nachfassen | | Zeitplan | Findet verschickte Offerten ohne Rückmeldung und erinnert die zuständige Person, mit Entwurf einer Nachfass-Mail | Verkauf fasst nach | Geplant | – | UC-006 |
+| Einkauf und Kreditoren | Lieferantenrechnung als Entwurf erfassen | | PDF-Beleg im Chat. Aus dem Postfach erst, wenn Anhänge gelesen werden | Liest den Beleg, findet Lieferant und Bestellung, schlägt Konten vor, prüft Dubletten und Beträge und legt die Rechnung als Entwurf an | Buchhaltung prüft und bucht | Getestet | 10 von 10 Belegen richtig behandelt | UC-001 |
+| Einkauf und Kreditoren | Mahnung eines Lieferanten abklären | | Zahlungserinnerung per Mail (über den Posteingang) | Prüft in Odoo, ob die gemahnte Rechnung erfasst und bezahlt ist, und nennt das Ergebnis mit Betrag und Fälligkeit | Buchhaltung zahlt oder widerspricht | Läuft | Test 2 | UC-015 |
+| Einkauf und Kreditoren | Lieferantenzahlungen auf Auffälligkeiten prüfen | | Auftrag im Chat | Sucht Doppelerfassungen und Doppelzahlungen und entlastet Fehlalarme selbst | Buchhaltung fordert zurück | Getestet | Doppelzahlung CHF 8'640 gefunden | UC-027 |
+| Finanzen und Controlling | Monatsbericht mit Kommentar | | Auftrag im Chat | Holt die Zahlen aus der Kennzahlen-Bibliothek, vergleicht mit Vorjahr und Vormonaten, erklärt Abweichungen und Sondereffekte | Geschäftsleitung | Getestet | rund 250 Zahlen, alle richtig. 3 von 5 Auffälligkeiten voll, 2 teilweise erkannt | UC-024 |
+| Finanzen und Controlling | Fragen zu Geschäftszahlen beantworten | | Frage im Chat | Beantwortet Fragen zu Umsatz, Marge, EBITDA, Debitoren und weiteren Kennzahlen mit festen Rechenwegen statt eigener Rechnung | – | Läuft | 11 Kennzahlen im Katalog, mit Odoo abgeglichen | UC-025 |
+| Finanzen und Controlling | Debitorenkontrolle | | Auftrag im Chat | Zeigt offene Posten nach Alter und findet Kunden, die immer später zahlen | Buchhaltung mahnt | Getestet | Säumiger Kunde voll erkannt | UC-026 |
+| Finanzen und Controlling | Mahnungen vorbereiten | | Zeitplan | Bestimmt die Mahnstufe und schreibt Mahnungen als Entwurf | Buchhaltung versendet | Geplant | – | UC-008 |
+| Steuerung und Sicherheit | Freigabe per Knopf | | Heikler Schritt | Fragt vor heiklen Schritten nach und wartet auf den Knopf in Telegram | Beat gibt frei oder lehnt ab | Läuft | 10 von 10 Tests | |
+| Steuerung und Sicherheit | Kosten überwachen | | Täglich um 10 Uhr | Prüft die Modellkosten des Vortags und meldet sich nur bei Überschreitung der Grenzen | Beat | Läuft | seit 13.11.2026 | |
+| Steuerung und Sicherheit | Jeden Schritt nachvollziehbar aufzeichnen | | Jeder Lauf | Zeichnet Aufrufe, Werkzeuge, Dauer und Kosten auf (Langfuse) und protokolliert jeden Schreibzugriff im Werkzeug-Server | – | Läuft | seit 13.11.2026 | |
+| Steuerung und Sicherheit | Zugang zum Postfach überwachen | | Täglich | Prüft, ob der Zugang zu Gmail noch lebt, und meldet einen Ausfall | Beat | Läuft | seit 13.11.2026 | |
 
 ## Später (Ideenspeicher)
 
@@ -122,6 +161,7 @@ Noch keine Use Cases, nur vorgemerkt.
   - Pipeline-Bericht pro Woche für die Geschäftsleitung.
   - Akquise: öffentliche Ausschreibungen (simap.ch) nach Stadtmobiliar durchsuchen. Die Kunden der Muster AG sind vor allem Gemeinden.
   - Demo-Fall: Eine Drittperson schickt eine Anfrage per Mail und sieht, was das System daraus macht.
+  - Simulierte Verkaufsleute (Stufe B, vorgemerkt 23.11.2026): Lea, Marco und Reto als kleine Agenten der Testumgebung, die auf ihnen zugewiesene Aktivitäten reagieren. Gehören nicht zur Muster AG, Manni bleibt ihr einziger Agent. Siehe [crm/plan-crm.md](../crm/plan-crm.md).
 - **Bedingung für beide:** Arbeiten nur auf einer Kopie der Odoo-Datenbank, damit die Prüffälle P1–P5 unverändert bleiben. Laufender Modellverbrauch als Aufwand ausweisen.
 
 ## Use Cases
@@ -377,3 +417,64 @@ Erfasst am 10.11.2026. UC-001 ist ausführlich, weil er der Leitfall für den We
 | Lösungsansatz | Desktop-KI unterstützt Konstruktion und GL interaktiv bei der Erstellung des Pflichtenhefts, Normenabgleich, Angebotsvergleich und Kalkulation in Excel. |
 | Kontrollpunkte | GL und Konstruktion entscheiden |
 | Umsetzungsgrad | Konzept |
+
+### UC-024 Monatsbericht mit Kommentar
+
+| Feld | Inhalt |
+| --- | --- |
+| Prozess | U2 Finanzen · Integration · Schreibstufe – |
+| Ausgangslage | Der Monatsabschluss liefert Zahlen, aber niemand hat Zeit, sie zu deuten. Die Geschäftsleitung will wissen, was sich verändert hat und warum. |
+| Lösungsansatz | Manni holt die Kennzahlen aus der Kennzahlen-Bibliothek (UC-025), vergleicht Monat, Vormonate und Vorjahr, rechnet Sondereffekte offen heraus und schreibt einen Kommentar mit Ursachen. Skill `monatsbericht`. |
+| Kontrollpunkte | Geschäftsleitung liest und entscheidet. Manni rechnet nur offen und mit Quelle |
+| Umsetzungsgrad | Proof of Concept (Etappe E, 9.11.2026): Monatsbericht Oktober 2026, rund 250 Zahlen alle richtig, P1, P2 und P4 erkannt, P3 und P5 teilweise ([erkenntnisse.md](erkenntnisse.md)) |
+
+### UC-025 Fragen zu Geschäftszahlen beantworten
+
+| Feld | Inhalt |
+| --- | --- |
+| Prozess | U2 Finanzen · Integration · Schreibstufe – |
+| Ausgangslage | Fragen wie «Wie hoch ist die Materialquote im Q2?» landen bei der Buchhaltung und warten. Ein Sprachmodell, das selbst rechnet, liefert je nach Lauf andere Zahlen. |
+| Lösungsansatz | Kennzahlen-Bibliothek mit fester Bedeutung und festem Rechenweg pro Kennzahl (11 Kennzahlen, 4 Bausteine). Manni ruft sie mit dem Skill `kennzahlen-abrufen` auf und rechnet nicht selbst. Plan: [kennzahlen/plan-kennzahlen.md](../kennzahlen/plan-kennzahlen.md) |
+| Kontrollpunkte | Abgleich der Rechenwege gegen Odoo (`kennzahlen/pruefung/abgleich.py`) |
+| Umsetzungsgrad | Umgesetzt (seit 3.11.2026), im Monatsbericht (UC-024) und bei Fragen im Chat |
+
+### UC-026 Debitorenkontrolle
+
+| Feld | Inhalt |
+| --- | --- |
+| Prozess | K5 Debitoren · Integration · Schreibstufe – |
+| Ausgangslage | Offene Posten werden spät bemerkt. Wer immer später zahlt, fällt erst auf, wenn es teuer wird. |
+| Lösungsansatz | Manni zeigt die offenen Posten nach Alter (Kennzahl K10) und die Debitorenfrist (K11), findet Kunden mit sich verschlechterndem Zahlungsverhalten und schlägt Massnahmen vor. |
+| Kontrollpunkte | Buchhaltung entscheidet über Mahnung und Liefersperre |
+| Umsetzungsgrad | Proof of Concept (Etappe E, Lauf E2, 9.11.2026): Rietli Immobilien (P2) voll erkannt |
+
+### UC-027 Lieferantenzahlungen auf Auffälligkeiten prüfen
+
+| Feld | Inhalt |
+| --- | --- |
+| Prozess | U2 Finanzen · Integration · Schreibstufe – |
+| Ausgangslage | Doppelt erfasste und doppelt bezahlte Rechnungen fallen bei einem KMU kaum auf. Ein internes Kontrollsystem (IKS) fehlt oft. |
+| Lösungsansatz | Manni sucht in den Lieferantenrechnungen und Zahlungen nach Doppelerfassungen (gleicher Betrag, ähnliche Nummer, ohne Bestellung) und prüft Verdachtsfälle selbst nach, bevor er meldet. |
+| Kontrollpunkte | Buchhaltung fordert zurück |
+| Umsetzungsgrad | Proof of Concept (Etappe E, Lauf E3, 9.11.2026): Doppelzahlung Pulverbeschichtung Glatttal CHF 8'640 (P5) voll erkannt, Fehlalarme selbst entlastet |
+
+### UC-028 Pipeline-Bericht pro Woche
+
+| Feld | Inhalt |
+| --- | --- |
+| Prozess | K2 Verkauf · Integration · Schreibstufe – |
+| Ausgangslage | Die Geschäftsleitung sieht nicht, was in der Pipeline steckt, welche grossen Chancen liegen bleiben und wie verlässlich die Prognose ist. |
+| Lösungsansatz | Manni liest die Verkaufschancen in Odoo CRM (nur lesend) und schreibt jede Woche einen Bericht: offene Chancen nach Stufe, gewichteter Wert, Abschlüsse und Verluste mit Grund, liegengebliebene Chancen, vorbeigegangene Abschlussdaten, Dubletten. |
+| Kontrollpunkte | Geschäftsleitung entscheidet über Massnahmen |
+| Validierungsexperiment | Prüffälle C1 bis C4 ([tests/prueffaelle.md](../tests/prueffaelle.md)) |
+| Umsetzungsgrad | Konzept, in Arbeit (Etappe CRM, K3, [crm/plan-crm.md](../crm/plan-crm.md)). Leserechte und Testdaten stehen (23.11.2026) |
+
+### UC-029 Akquise Neukunde: von der Mail zur Verkaufschance
+
+| Feld | Inhalt |
+| --- | --- |
+| Prozess | K2 Verkauf (berührt KA) · Integration · Schreibstufe 1 |
+| Ausgangslage | Anfragen von Neukunden bleiben im Posteingang liegen oder werden ohne Qualifizierung offeriert. Bei Gemeinden ist oft unklar, ob ausgeschrieben werden muss. |
+| Lösungsansatz | Aus der Mail legt Manni eine Verkaufschance an, prüft Dubletten, recherchiert, schlägt die Qualifizierung vor, teilt nach Regel zu und plant die nächste Aufgabe für den Verkauf. Ist die Chance qualifiziert, folgt das Angebot als Entwurf (UC-005). Neue Werkzeuge im Werkzeug-Server: Chance anlegen, Notiz, Aktivität. |
+| Kontrollpunkte | Verkauf qualifiziert, setzt Stufen, gewinnt oder verliert. Manni legt keine Kunden an |
+| Umsetzungsgrad | Konzept (Etappe CRM, K4, [crm/plan-crm.md](../crm/plan-crm.md)) |

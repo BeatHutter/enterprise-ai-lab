@@ -12,6 +12,19 @@ Agenten, die gegen diese Prüffälle getestet werden, haben keinen Lesezugriff a
 | P4 | Die Schulgemeinden sparen, allen voran die Schulgemeinde Hinterberg. | 2026 | Umsatz nach Kundensegment | Segment Schulen minus rund 60 %, Hinterberg minus rund 70 %. |
 | P5 | Eine Rechnung der Pulverbeschichtung Glatttal über CHF 8'640 ist doppelt erfasst und bezahlt (PB-2026-0613 und PB 2026 613). | Juni 2026 | Lieferantenrechnungen, Zahlungen | Doppelzahlung erkennen und CHF 8'640 zurückfordern. IKS-Fall: Die zweite Rechnung ist ohne Bestellung erfasst. Schwierigkeitshinweis: Gleicher Lieferant und gleicher Betrag innerhalb von 7 Tagen liefert 10 Fehlalarme (alles Stahlcenter-Lieferungen mit zufällig gleichem Betrag). Eindeutig wird es erst mit «mindestens eine Rechnung ohne Bestellung» oder mit der bereinigten Referenz (Sonderzeichen und führende Nullen weg, «PB-2026-0613» und «PB 2026 613» werden gleich). |
 
+## CRM: Prüffälle C1 bis C4 (seit 23.11.2026)
+
+Die Pipeline der Muster AG in Odoo CRM (Etappe CRM, K2, `crm/k2_testdaten.py`). Geschichte: Bis November 2026 führte die Muster AG ihre Projekte in Excel. Bei der Einführung des CRM trägt sie alle Projekte ab CHF 25'000 seit Juli 2026 nach (Erstelldatum in Odoo darum 23.11.2026, nicht auswerten) und erfasst neue Anfragen direkt. Bestand: 41 Chancen, 14 gewonnen, 11 verloren, 16 offen (Neu 5, Qualifiziert 2, Offerte 7, Verhandlung 2), offen total CHF 667'005, gewichtet CHF 204'617. 34 Chancen sind mit ihrer Offerte verknüpft. Zuständig: Reto Kälin (Gemeinden, Städte, Bergbahnen), Marco Steiner (Schulen, Hotels, Genossenschaften), Lea Brunner (Immobilienverwaltungen, Gartenbau, Anfragen an info@). Prüfung: `crm/k2_pruefen.py`.
+
+| Nr. | Was passiert | Wo sichtbar | Der Agent muss finden |
+| --- | --- | --- | --- |
+| C1 | Stadt Seefeld, «Bahnhofplatz Etappe 2», CHF 85'000, Stufe Qualifiziert. Letzte Notiz und Stufenwechsel am 6.10.2026 (Begehung), seither nichts, keine geplante Aktivität. Knüpft an P3 an | Chance, Verlauf, Aktivitäten | Grösste Chance der Pipeline liegt seit über sechs Wochen still. Empfehlung: Reto soll nachfassen, Termin oder Aktivität setzen |
+| C2 | Offerte S01589 an die Stadt Brunnmatt (CHF 30'518, 30.9.2026) verschickt, nie nachgefasst | Chance in Stufe Offerte ohne Aktivität, Offerte im Status «gesendet» | Einzige offene Offerte über 30 Tage ohne geplante Aktivität. Empfehlung: nachfassen |
+| C3 | Wohnbaugenossenschaft Talgarten (S01597, CHF 28'578): erwartetes Abschlussdatum 15.10.2026 vorbei, Chance noch offen mit 40 % | Erwartetes Abschlussdatum | Verzerrt die Prognose. Datum neu setzen oder Chance als verloren schliessen |
+| C4 | Gemeinde Lindmatt doppelt: Chance zur Offerte S01605 (Reto) und eine neue Chance «Lindmatt: Anfrage Begrünung, Veloparkierung» von Lea aus einer Mail an info@, ohne verknüpften Kontakt | Pipeline, Kunde | Dublette erkennen und zusammenführen. Kein Befund: Eichrain, Bachenrain und Seefeld haben je zwei verschiedene Projekte |
+
+Stichtag für C1 bis C3 ist der Tag des Testlaufs. Geplante Aktivitäten der übrigen Chancen liegen zwischen 25.11. und 9.12.2026 und werden mit der Zeit überfällig. Überfällige Aktivitäten sind kein Prüffall, ein guter Bericht nennt sie trotzdem.
+
 ## Begriffe
 
 - **Alter eines Postens** = Tage nach Fälligkeit, nicht nach Rechnungsdatum. Stichtag ist der 31.10.2026.

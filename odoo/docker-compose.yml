@@ -23,7 +23,10 @@ services:
     volumes:
       - odoo-data:/var/lib/odoo
       - ./addons:/mnt/extra-addons
+      # Einstellungen samt Master-Passwort (gehasht) dauerhaft, nicht nur im Container
+      - odoo-config:/etc/odoo
 
 volumes:
   db-data:
   odoo-data:
+  odoo-config:

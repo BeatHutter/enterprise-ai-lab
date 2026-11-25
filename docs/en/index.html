@@ -37,6 +37,7 @@
       <div class="actions">
         <a class="btn primary" href="https://www.linkedin.com/in/beat-hutter-2687414b/" target="_blank" rel="noopener"><svg class="in" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>LinkedIn</a>
         <a class="btn soft" href="https://github.com/BeatHutter/enterprise-ai-lab" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Project on GitHub</a>
+        <a class="btn-link" href="#live">Live demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       </div>
       <figure class="hero-art">
@@ -114,6 +115,29 @@
           <h3>Why DeepSeek</h3>
           <p>Models are compared and chosen per task. DeepSeek is a strong model for agentic workflows: reliable at calling tools and very low-cost. In my assessment it currently offers the best price-performance ratio for this kind of automation. It is therefore an option for a real SME as well, then through a European or American provider. In the lab it runs directly on DeepSeek's servers. That is acceptable because the lab works with fictitious data only.</p>
         </div>
+      </div>
+    </section>
+
+    <section id="live">
+      <h2>Live demo: chat with Manni</h2>
+      <p class="section-lead">Manni is the lab's AI agent. In the chat he works with the fictional data of Muster AG in a test environment of the ERP (Odoo): he reads figures, creates reports and drafts quotes. Every working step is shown live.</p>
+      <div class="card live">
+        <div class="live-cta">
+          <a class="btn primary" href="https://manni.bh-automation.cloud" target="_blank" rel="noopener">Open the chat<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <span class="live-url">manni.bh-automation.cloud</span>
+        </div>
+        <p>Access by invitation only. You sign in with your email address and receive a one-time code (Cloudflare Access). Not invited yet? Send me a short note by <a href="mailto:beat.b.hutter@gmail.com">email</a> or on <a href="https://www.linkedin.com/in/beat-hutter-2687414b/" target="_blank" rel="noopener">LinkedIn</a>.</p>
+        <details>
+          <summary>What is deliberately limited, and why</summary>
+          <ul>
+            <li><strong>Invitation only:</strong> Manni runs on a lab computer, and every request costs money at the language model provider.</li>
+            <li><strong>Fewer tools than in operation (least privilege):</strong> no web browsing, no schedules, and Manni cannot store anything permanently. Visitors should not be able to change the agent.</li>
+            <li><strong>Writes only drafts:</strong> Manni creates quotes in the ERP (Odoo) as drafts. Only a human confirms and sends them (human-in-the-loop). Test drafts from demos are removed afterwards.</li>
+            <li><strong>Limited messages:</strong> at most 20 per hour and person.</li>
+            <li><strong>Availability:</strong> The lab computer does not run around the clock. For a reliable demo, it is best to agree on a time.</li>
+          </ul>
+        </details>
+        <p class="small">Note: The demo is for demonstration only. Answers from an AI agent may contain errors and are not advice. Please do not enter real data about people or companies. Conversations are stored and processed by a language model, details in the <a href="privacy.html#chat">privacy policy, section 6</a>.</p>
       </div>
     </section>
 
