@@ -36,7 +36,7 @@ All runs with a low-cost model (DeepSeek Flash).
 
 Details per run: [docs/erkenntnisse.md](docs/erkenntnisse.md) (German).
 
-## What I learned
+## What I learned so far
 
 1. **Security belongs in the tool, not in the prompt.** The agent spotted a forged invoice. Had it not, the tool still could not have posted anything.
 2. **A model sees content, not origin.** It caught fake bank details by their wording, but missed the wrong sender domain. Such checks belong in a script.
