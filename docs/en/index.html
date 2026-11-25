@@ -29,7 +29,7 @@
     <section class="hero">
       <div class="hero-grid">
       <div class="hero-text">
-      <p class="eyebrow">Project profile · Work in progress · As of 16 Nov 2026</p>
+      <p class="eyebrow">Project profile · Work in progress · As of 25 Nov 2026</p>
       <h1>Enterprise&#8209;grade automation with AI agents</h1>
       <p class="subline">What works in business processes, with guardrails, governance and evaluation against expected values.</p>
       <p class="lead">In my use case lab, an AI agent works inside a fictitious Swiss company: quotes, invoices, monthly reporting, inbox. Whatever can be solved deterministically is done by Python scripts without AI. The agent may read and create drafts. Posting, sending and paying stay with a human (human-in-the-loop).</p>
@@ -46,11 +46,11 @@
       </div>
       <div class="kpis">
         <div class="kpi"><strong>5<span class="asof-mark">*</span></strong><span>use cases built and evaluated, plus infrastructure and agent framework</span></div>
-        <div class="kpi"><strong>60 h<span class="asof-mark">*</span></strong><span>in 17 days from installation to running automation</span></div>
+        <div class="kpi"><strong>90 h<span class="asof-mark">*</span></strong><span>in four weeks from installation to running automation</span></div>
         <div class="kpi"><strong>&lt; CHF 0.01<span class="asof-mark">*</span></strong><span>model cost per standard process such as a quote or invoice, excluding deep dives and ad-hoc queries</span></div>
         <div class="kpi"><strong>0<span class="asof-mark">*</span></strong><span>wrong entries in the ERP caused by built-in traps such as prompt injection</span></div>
       </div>
-      <p class="asof-note"><span class="asof-mark">*</span> As of 16 Nov 2026. The lab keeps growing, figures marked with an asterisk are updated with every release.</p>
+      <p class="asof-note"><span class="asof-mark">*</span> As of 25 Nov 2026. The lab keeps growing, figures marked with an asterisk are updated with every release.</p>
     </section>
 
     <section id="lab">
@@ -194,12 +194,12 @@
           <h3>How I work</h3>
           <p>Direction, decisions and tests are mine. Before any automation, it is decided whether a process can be solved deterministically or needs an agent. Fundamental questions are settled up front and recorded with their reasoning.</p>
           <p>Strategy and concept are developed in a dedicated project in Claude Cowork. Code and tests are written with Claude Code in the VS Code development environment, partly also with Google Antigravity and the Gemini models: when the Anthropic quota runs out, work continues there. That way two subscriptions at 20 dollars each are enough even on busy days.</p>
-          <p>The lab was built in stages: infrastructure, test data, isolated agent, access, first use case, MCP server, further use cases, inbox. Each stage had a goal and an acceptance. Log book, decisions, open points and measurements per test run are documented and versioned. Code, test sets, architecture, decisions and measurements are public on GitHub.<span class="asof-mark">*</span></p>
+          <p>The lab was built in stages: infrastructure, test data, isolated agent, access, first use case, MCP server, further use cases, inbox, CRM and chat. Each stage had a goal and an acceptance. Log book, decisions, open points and measurements per test run are documented and versioned. Code, test sets, architecture, decisions and measurements are public on GitHub.<span class="asof-mark">*</span></p>
         </div>
         <div class="card facts">
           <h3>Time and cost<span class="asof-mark">*</span></h3>
           <dl>
-            <dt>Effort</dt><dd>60 hours in 17 days (28 October to 13 November 2026)</dd>
+            <dt>Effort</dt><dd>About 90 hours in four weeks (28 October to 25 November 2026)</dd>
             <dt>Model cost</dt><dd>Negligible during testing, below CHF 0.01 per standard process</dd>
             <dt>Licence cost</dt><dd>None for ERP and agent harness (open source: Odoo Community with OCA modules, Hermes). Microsoft 365 is planned for workplace use cases</dd>
             <dt>Hardware</dt><dd>Separate business laptop in my home network</dd>
@@ -222,6 +222,8 @@
             <li><strong>Semantic layer</strong> for financial KPIs</li>
             <li><strong>Inbox</strong> on a schedule</li>
             <li><strong>Observability and cost alert</strong> with Langfuse</li>
+            <li><strong>CRM</strong> in the ERP (Odoo)</li>
+            <li><strong>Browser chat</strong> for live demos</li>
           </ul>
         </div>
         <div class="phase">
@@ -232,7 +234,7 @@
             <li><strong>FinOps:</strong> budgets per use case</li>
             <li><strong>Invoices</strong> straight from the mailbox</li>
             <li><strong>Approval workflows</strong> for postings</li>
-            <li><strong>CRM</strong> and a project bot on this site</li>
+            <li><strong>Pipeline report</strong> in the CRM and a project bot on this site</li>
           </ul>
         </div>
         <div class="phase">
@@ -340,7 +342,7 @@
       <a href="https://github.com/BeatHutter/enterprise-ai-lab" target="_blank" rel="noopener">GitHub</a>
       <a href="privacy.html">Privacy</a>
     </nav>
-    <p class="asof"><span class="asof-mark">*</span> As of 16 Nov 2026. This page is updated continuously.</p>
+    <p class="asof"><span class="asof-mark">*</span> As of 25 Nov 2026. This page is updated continuously.</p>
   </div>
 </footer>
 </body>

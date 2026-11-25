@@ -29,7 +29,7 @@
     <section class="hero">
       <div class="hero-grid">
       <div class="hero-text">
-      <p class="eyebrow">Projektsteckbrief · Work in Progress · Stand 16.11.2026</p>
+      <p class="eyebrow">Projektsteckbrief · Work in Progress · Stand 25.11.2026</p>
       <h1>Automation mit KI&#8209;Agenten nach Enterprise&#8209;Standard</h1>
       <p class="subline">Was in Unternehmensprozessen funktioniert, mit Guardrails, Governance und Evaluation gegen Sollwerte.</p>
       <p class="lead">In meinem Use-Case-Labor arbeitet ein KI-Agent in einer fiktiven Schweizer Firma mit: Offerten, Rechnungen, Monatsbericht, Posteingang. Was sich deterministisch lösen lässt, erledigen Python-Skripte ohne KI. Der Agent darf lesen und Entwürfe anlegen. Buchen, versenden und zahlen bleibt beim Menschen (Human-in-the-Loop).</p>
@@ -46,11 +46,11 @@
       </div>
       <div class="kpis">
         <div class="kpi"><strong>5<span class="asof-mark">*</span></strong><span>Anwendungsfälle gebaut und evaluiert, dazu Infrastruktur und Agent-Framework</span></div>
-        <div class="kpi"><strong>60 h<span class="asof-mark">*</span></strong><span>in 17 Tagen von der Installation bis zur laufenden Automation</span></div>
+        <div class="kpi"><strong>90 h<span class="asof-mark">*</span></strong><span>in vier Wochen von der Installation bis zur laufenden Automation</span></div>
         <div class="kpi"><strong>&lt; 1 Rappen<span class="asof-mark">*</span></strong><span>Modellkosten pro Standardablauf wie Offerte oder Rechnung, ohne Deep Dives und Ad-hoc-Abfragen</span></div>
         <div class="kpi"><strong>0<span class="asof-mark">*</span></strong><span>falsche Einträge im ERP durch eingebaute Fallen wie Prompt Injection</span></div>
       </div>
-      <p class="asof-note"><span class="asof-mark">*</span> Stand 16.11.2026. Das Labor wächst laufend, Angaben mit Sternchen werden bei jedem Update nachgeführt.</p>
+      <p class="asof-note"><span class="asof-mark">*</span> Stand 25.11.2026. Das Labor wächst laufend, Angaben mit Sternchen werden bei jedem Update nachgeführt.</p>
     </section>
 
     <section id="labor">
@@ -194,12 +194,12 @@
           <h3>Wie ich arbeite</h3>
           <p>Richtung, Entscheide und Tests liegen bei mir. Vor jeder Automation wird geklärt, ob ein Ablauf deterministisch gelöst werden kann oder einen Agenten braucht. Grundsatzfragen werden vorher entschieden und mit Begründung festgehalten.</p>
           <p>Strategie und Konzept entstehen in einem eigenen Projekt in Claude Cowork. Code und Tests entstehen mit Claude Code in der Entwicklungsumgebung VS Code, teils auch mit Google Antigravity und den Gemini-Modellen: Ist das Kontingent bei Anthropic aufgebraucht, geht es dort weiter. So reichen zwei Abos zu je 20 Dollar auch an arbeitsreichen Tagen.</p>
-          <p>Das Labor ist in Etappen entstanden: Infrastruktur, Testdaten, abgeschotteter Agent, Zugänge, erster Anwendungsfall, MCP-Server, weitere Anwendungsfälle, Posteingang. Jede Etappe hatte ein Ziel und eine Abnahme. Dokumentiert und versioniert sind Logbuch, Entscheide, offene Punkte und Messwerte pro Testlauf. Öffentlich auf GitHub sind Code, Testsets, Architektur und Messwerte.<span class="asof-mark">*</span></p>
+          <p>Das Labor ist in Etappen entstanden: Infrastruktur, Testdaten, abgeschotteter Agent, Zugänge, erster Anwendungsfall, MCP-Server, weitere Anwendungsfälle, Posteingang, CRM und Chat. Jede Etappe hatte ein Ziel und eine Abnahme. Dokumentiert und versioniert sind Logbuch, Entscheide, offene Punkte und Messwerte pro Testlauf. Öffentlich auf GitHub sind Code, Testsets, Architektur und Messwerte.<span class="asof-mark">*</span></p>
         </div>
         <div class="card facts">
           <h3>Zeit und Kosten<span class="asof-mark">*</span></h3>
           <dl>
-            <dt>Aufwand</dt><dd>60 Stunden in 17 Tagen (28.10. bis 13.11.2026)</dd>
+            <dt>Aufwand</dt><dd>Rund 90 Stunden in vier Wochen (28.10. bis 25.11.2026)</dd>
             <dt>Modellkosten</dt><dd>In der Testphase vernachlässigbar, unter einem Rappen pro Standardablauf</dd>
             <dt>Lizenzkosten</dt><dd>Keine für ERP und Agent Harness (Open Source: Odoo Community mit OCA-Modulen, Hermes). Microsoft 365 ist für Anwendungsfälle am Arbeitsplatz vorgesehen</dd>
             <dt>Hardware</dt><dd>Separater Business-Laptop im Heimnetz</dd>
@@ -222,6 +222,8 @@
             <li><strong>Semantic Layer</strong> für Finanzkennzahlen</li>
             <li><strong>Posteingang</strong> nach Zeitplan</li>
             <li><strong>Observability und Kostenalarm</strong> mit Langfuse</li>
+            <li><strong>CRM</strong> im ERP (Odoo)</li>
+            <li><strong>Chat im Browser</strong> für Live-Vorführungen</li>
           </ul>
         </div>
         <div class="phase">
@@ -232,7 +234,7 @@
             <li><strong>FinOps:</strong> Budgets pro Anwendungsfall</li>
             <li><strong>Rechnungen</strong> direkt aus dem Postfach</li>
             <li><strong>Freigabe-Abläufe</strong> für Buchungen</li>
-            <li><strong>CRM</strong> und Projekt-Bot auf dieser Seite</li>
+            <li><strong>Pipeline-Bericht</strong> im CRM und Projekt-Bot auf dieser Seite</li>
           </ul>
         </div>
         <div class="phase">
@@ -340,7 +342,7 @@
       <a href="https://github.com/BeatHutter/enterprise-ai-lab" target="_blank" rel="noopener">GitHub</a>
       <a href="datenschutz.html">Datenschutz</a>
     </nav>
-    <p class="asof"><span class="asof-mark">*</span> Stand 16.11.2026. Diese Seite wird laufend aktualisiert.</p>
+    <p class="asof"><span class="asof-mark">*</span> Stand 25.11.2026. Diese Seite wird laufend aktualisiert.</p>
   </div>
 </footer>
 </body>

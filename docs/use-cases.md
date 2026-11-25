@@ -116,7 +116,7 @@ Erfasst ab 10.11.2026, Umsetzungsgrad nachgeführt am 23.11.2026. UC-001 bis UC-
 
 ## Leistungsübersicht: was Manni für die Muster AG tut
 
-Sicht nach Geschäftsprozessen, nicht nach Funktionen. Eine Zeile pro Prozess, den Manni ganz oder teilweise übernimmt. **Goldene Quelle** für die Seite [leistungsuebersicht.html](leistungsuebersicht.html). Die Seite wird mit `python3 docs/leistungsuebersicht.py` aus dieser Tabelle und der Übersicht oben erzeugt, nie von Hand geändert. Nachführen bei jedem Testlauf und am Ende jeder Etappe, im selben Commit.
+Sicht nach Geschäftsprozessen, nicht nach Funktionen. Eine Zeile pro Prozess, den Manni ganz oder teilweise übernimmt. **Goldene Quelle** für die Seite Leistungsübersicht (intern). Die Seite wird mit `python3 docs/leistungsuebersicht.py` aus dieser Tabelle und der Übersicht oben erzeugt, nie von Hand geändert. Nachführen bei jedem Testlauf und am Ende jeder Etappe, im selben Commit.
 
 Zuletzt nachgeführt: 23.11.2026
 
@@ -161,7 +161,7 @@ Noch keine Use Cases, nur vorgemerkt.
   - Pipeline-Bericht pro Woche für die Geschäftsleitung.
   - Akquise: öffentliche Ausschreibungen (simap.ch) nach Stadtmobiliar durchsuchen. Die Kunden der Muster AG sind vor allem Gemeinden.
   - Demo-Fall: Eine Drittperson schickt eine Anfrage per Mail und sieht, was das System daraus macht.
-  - Simulierte Verkaufsleute (Stufe B, vorgemerkt 23.11.2026): Lea, Marco und Reto als kleine Agenten der Testumgebung, die auf ihnen zugewiesene Aktivitäten reagieren. Gehören nicht zur Muster AG, Manni bleibt ihr einziger Agent. Siehe [crm/plan-crm.md](../crm/plan-crm.md).
+  - Simulierte Verkaufsleute (Stufe B, vorgemerkt 23.11.2026): Lea, Marco und Reto als kleine Agenten der Testumgebung, die auf ihnen zugewiesene Aktivitäten reagieren. Gehören nicht zur Muster AG, Manni bleibt ihr einziger Agent. Siehe Detailplan CRM (intern).
 - **Bedingung für beide:** Arbeiten nur auf einer Kopie der Odoo-Datenbank, damit die Prüffälle P1–P5 unverändert bleiben. Laufender Modellverbrauch als Aufwand ausweisen.
 
 ## Use Cases
@@ -434,7 +434,7 @@ Erfasst am 10.11.2026. UC-001 ist ausführlich, weil er der Leitfall für den We
 | --- | --- |
 | Prozess | U2 Finanzen · Integration · Schreibstufe – |
 | Ausgangslage | Fragen wie «Wie hoch ist die Materialquote im Q2?» landen bei der Buchhaltung und warten. Ein Sprachmodell, das selbst rechnet, liefert je nach Lauf andere Zahlen. |
-| Lösungsansatz | Kennzahlen-Bibliothek mit fester Bedeutung und festem Rechenweg pro Kennzahl (11 Kennzahlen, 4 Bausteine). Manni ruft sie mit dem Skill `kennzahlen-abrufen` auf und rechnet nicht selbst. Plan: [kennzahlen/plan-kennzahlen.md](../kennzahlen/plan-kennzahlen.md) |
+| Lösungsansatz | Kennzahlen-Bibliothek mit fester Bedeutung und festem Rechenweg pro Kennzahl (11 Kennzahlen, 4 Bausteine). Manni ruft sie mit dem Skill `kennzahlen-abrufen` auf und rechnet nicht selbst. Plan: Detailplan Kennzahlen (intern) |
 | Kontrollpunkte | Abgleich der Rechenwege gegen Odoo (`kennzahlen/pruefung/abgleich.py`) |
 | Umsetzungsgrad | Umgesetzt (seit 3.11.2026), im Monatsbericht (UC-024) und bei Fragen im Chat |
 
@@ -467,7 +467,7 @@ Erfasst am 10.11.2026. UC-001 ist ausführlich, weil er der Leitfall für den We
 | Lösungsansatz | Manni liest die Verkaufschancen in Odoo CRM (nur lesend) und schreibt jede Woche einen Bericht: offene Chancen nach Stufe, gewichteter Wert, Abschlüsse und Verluste mit Grund, liegengebliebene Chancen, vorbeigegangene Abschlussdaten, Dubletten. |
 | Kontrollpunkte | Geschäftsleitung entscheidet über Massnahmen |
 | Validierungsexperiment | Prüffälle C1 bis C4 ([tests/prueffaelle.md](../tests/prueffaelle.md)) |
-| Umsetzungsgrad | Konzept, in Arbeit (Etappe CRM, K3, [crm/plan-crm.md](../crm/plan-crm.md)). Leserechte und Testdaten stehen (23.11.2026) |
+| Umsetzungsgrad | Konzept, in Arbeit (Etappe CRM, K3, Detailplan CRM (intern)). Leserechte und Testdaten stehen (23.11.2026) |
 
 ### UC-029 Akquise Neukunde: von der Mail zur Verkaufschance
 
@@ -477,4 +477,4 @@ Erfasst am 10.11.2026. UC-001 ist ausführlich, weil er der Leitfall für den We
 | Ausgangslage | Anfragen von Neukunden bleiben im Posteingang liegen oder werden ohne Qualifizierung offeriert. Bei Gemeinden ist oft unklar, ob ausgeschrieben werden muss. |
 | Lösungsansatz | Aus der Mail legt Manni eine Verkaufschance an, prüft Dubletten, recherchiert, schlägt die Qualifizierung vor, teilt nach Regel zu und plant die nächste Aufgabe für den Verkauf. Ist die Chance qualifiziert, folgt das Angebot als Entwurf (UC-005). Neue Werkzeuge im Werkzeug-Server: Chance anlegen, Notiz, Aktivität. |
 | Kontrollpunkte | Verkauf qualifiziert, setzt Stufen, gewinnt oder verliert. Manni legt keine Kunden an |
-| Umsetzungsgrad | Konzept (Etappe CRM, K4, [crm/plan-crm.md](../crm/plan-crm.md)) |
+| Umsetzungsgrad | Konzept (Etappe CRM, K4, Detailplan CRM (intern)) |
