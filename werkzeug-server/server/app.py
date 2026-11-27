@@ -24,6 +24,7 @@ from mcp.server.mcpserver.exceptions import ToolError
 from mcp.types import ToolAnnotations
 from pydantic import BaseModel
 
+from crm import aktivitaet_anlegen, chance_anlegen, kunde_schreiben, kunde_vorbereiten, notiz_anhaengen
 from lieferantenrechnung import Position, entwurf_anlegen
 from offerte import OffertPosition, angebot_anlegen
 from odoo import Odoo, OdooFehler
@@ -232,12 +233,14 @@ async def lieferantenrechnung_entwurf_anlegen(
     title="Offerte als Entwurf anlegen",
     description=(
         "Legt in Odoo ein Angebot (Offerte) als ENTWURF an (UC-005). Versendet und bestätigt wird nie, das macht der "
-        "Innendienst. Du übergibst nur Kunde (ID), Artikelcodes und Mengen. Preise und Rabatte setzt Odoo aus der "
-        "Preisliste des Kunden, du kannst sie nicht beeinflussen. Kunde und Artikel suchst du vorher mit odoo-lesen. "
-        "Der Server prüft: Kunde existiert und ist Kunde, Artikel existiert und ist verkäuflich, Mengen gültig. "
-        "Bei einem Verstoss legt er nichts an und antwortet mit «ABGELEHNT: Grund». Bei möglichen Doppeln oder "
-        "ungewöhnlichen Mengen legt er an und meldet «WARNUNG». Im hinweis gibst du dem Innendienst weiter, was "
-        "das Werkzeug nicht abbildet: Rabattwunsch, gewünschter Termin, fehlende Artikel, Sonderwünsche."
+        "Innendienst. Du übergibst nur Kunde (ID), Artikelcodes und Mengen sowie optional chance_id (ID einer "
+        "qualifizierten Verkaufschance im CRM). Preise und Rabatte setzt Odoo aus der Preisliste des Kunden, du kannst "
+        "sie nicht beeinflussen. Kunde und Artikel suchst du vorher mit odoo-lesen. Der Server prüft: Kunde existiert "
+        "und ist Kunde, Artikel existiert und ist verkäuflich, Mengen gültig; falls chance_id angegeben ist, muss die "
+        "Chance aktiv und mindestens in Stufe «Qualifiziert» sein. Bei einem Verstoss legt er nichts an und antwortet "
+        "mit «ABGELEHNT: Grund». Bei möglichen Doppeln oder ungewöhnlichen Mengen legt er an und meldet «WARNUNG». "
+        "Im hinweis gibst du dem Innendienst weiter, was das Werkzeug nicht abbildet: Rabattwunsch, gewünschter Termin, "
+        "fehlende Artikel, Sonderwünsche."
     ),
 )
 @werkzeug
@@ -247,11 +250,157 @@ async def offerte_entwurf_anlegen(
     ctx: Context,
     kundenreferenz: str | None = None,
     hinweis: str | None = None,
+    chance_id: int | None = None,
 ) -> str:
-    """kundenreferenz = Bezug des Kunden, z. B. «Anfrage vom 10.11.2026, Herr Muster». hinweis = Notiz an den Innendienst."""
+    """kundenreferenz = Bezug des Kunden, z. B. «Anfrage vom 10.11.2026, Herr Muster». hinweis = Notiz an den Innendienst.
+    chance_id = optionale ID einer qualifizierten Verkaufschance (crm.lead) in Odoo."""
     aufrufer = aufrufer_aus_kopfzeile((ctx.headers or {}).get("authorization"))["name"]
     try:
-        return await asyncio.to_thread(angebot_anlegen, odoo, aufrufer, kunde_id, positionen, kundenreferenz, hinweis)
+        return await asyncio.to_thread(
+            angebot_anlegen, odoo, aufrufer, kunde_id, positionen, kundenreferenz, hinweis, chance_id
+        )
+    except OdooFehler as fehler:
+        raise ToolError(f"Odoo meldet einen Fehler: {fehler}")
+
+
+@mcp.tool(
+    title="Verkaufschance für Neukunde anlegen",
+    description=(
+        "Legt in Odoo CRM eine neue Verkaufschance in der Stufe «Neu» an (UC-029). Einen neuen Kunden (res.partner) "
+        "legt das Werkzeug bewusst nicht an: Die Kontaktangaben stehen an der Chance, die Qualifizierung und "
+        "Umwandlung in einen Kunden macht der Verkauf. Der Server prüft: Titel vorhanden, mindestens Firma oder "
+        "E-Mail-Adresse vorhanden, Verkaufsperson und Merkmale gültig. Existiert die Firma oder Mail-Domain bereits "
+        "als Kunde oder als offene Chance, legt er an und meldet «WARNUNG»."
+    ),
+)
+@werkzeug
+async def verkaufschance_anlegen(
+    titel: str,
+    ctx: Context,
+    firma: str | None = None,
+    kontaktperson: str | None = None,
+    funktion: str | None = None,
+    email: str | None = None,
+    telefon: str | None = None,
+    strasse: str | None = None,
+    plz: str | None = None,
+    ort: str | None = None,
+    geschaetzter_wert: float = 0.0,
+    zustaendig: str | None = None,
+    merkmale: list[str] | None = None,
+    quelle: str = "E-Mail",
+    frist: str | None = None,
+    beschreibung: str | None = None,
+) -> str:
+    """titel = z. B. «Gemeinde Hügelfingen: Velounterstand Bahnhof». zustaendig = Reto Kälin, Marco Steiner oder Lea Brunner
+    (wird sonst nach Regel abgeleitet). merkmale = Liste aus [Gemeinde, Schule, Bergbahn, Hotel, Immobilien, Wiederverkauf,
+    Messe 2025, Ausschreibung]. quelle = E-Mail, Telefon, Messe 2025, Website oder Ausschreibung (simap). frist = JJJJ-MM-TT."""
+    aufrufer = aufrufer_aus_kopfzeile((ctx.headers or {}).get("authorization"))["name"]
+    try:
+        return await asyncio.to_thread(
+            chance_anlegen, odoo, aufrufer, titel, firma, kontaktperson, funktion, email, telefon,
+            strasse, plz, ort, geschaetzter_wert, zustaendig, merkmale, quelle, frist, beschreibung,
+        )
+    except OdooFehler as fehler:
+        raise ToolError(f"Odoo meldet einen Fehler: {fehler}")
+
+
+@mcp.tool(
+    title="Notiz an Verkaufschance anhängen",
+    description=(
+        "Hängt eine interne Notiz (z. B. Qualifizierungsvorschlag mit Bedarf, Budget, Zeitpunkt, Entscheider und "
+        "Ausschreibungspflicht nach IVöB) an eine aktive Verkaufschance im CRM (UC-029). Erscheint im Verlauf von "
+        "Odoo unter dem Namen «Manni (KI-Assistent)»."
+    ),
+)
+@werkzeug
+async def notiz_an_chance(
+    chance_id: int,
+    notiz: str,
+    ctx: Context,
+) -> str:
+    """chance_id = ID der Verkaufschance in Odoo (crm.lead). notiz = Text der internen Notiz."""
+    aufrufer = aufrufer_aus_kopfzeile((ctx.headers or {}).get("authorization"))["name"]
+    try:
+        return await asyncio.to_thread(notiz_anhaengen, odoo, aufrufer, chance_id, notiz)
+    except OdooFehler as fehler:
+        raise ToolError(f"Odoo meldet einen Fehler: {fehler}")
+
+
+@mcp.tool(
+    title="Aktivität an Verkaufschance planen",
+    description=(
+        "Plant die nächste Aktivität (Anruf, E-Mail, Aufgabe oder Sitzung) an einer aktiven Verkaufschance im CRM "
+        "für die zuständige Verkaufsperson (UC-029, UC-006)."
+    ),
+)
+@werkzeug
+async def aktivitaet_planen(
+    chance_id: int,
+    zusammenfassung: str,
+    faellig_am: str,
+    ctx: Context,
+    art: str = "call",
+    zustaendig: str | None = None,
+    notiz: str | None = None,
+) -> str:
+    """chance_id = ID der Verkaufschance. zusammenfassung = kurzer Titel der Aufgabe. faellig_am = JJJJ-MM-TT.
+    art = call (Anruf), email (E-Mail), todo (Aufgabe) oder meeting (Sitzung). zustaendig = optionaler Name der
+    Verkaufsperson (sonst die zuständige Person der Chance)."""
+    aufrufer = aufrufer_aus_kopfzeile((ctx.headers or {}).get("authorization"))["name"]
+    try:
+        return await asyncio.to_thread(
+            aktivitaet_anlegen, odoo, aufrufer, chance_id, zusammenfassung, faellig_am, art, zustaendig, notiz
+        )
+    except OdooFehler as fehler:
+        raise ToolError(f"Odoo meldet einen Fehler: {fehler}")
+
+
+@mcp.tool(
+    title="Neukunde in Odoo anlegen (mit Freigabe per Knopf)",
+    description=(
+        "Legt in Odoo einen neuen Kunden (res.partner, Firma plus optional Kontaktperson) an (UC-013, UC-029, "
+        "Schreibstufe 2). Erfordert zwingend die Freigabe per Knopf durch einen Menschen (Elicitation). "
+        "Wird chance_id übergeben, übernimmt das Werkzeug fehlende Kontaktangaben direkt aus der Verkaufschance, "
+        "verknüpft den neuen Kunden mit der Chance und setzt die Chance von «Neu» auf «Qualifiziert» – danach kann "
+        "sofort offerte_entwurf_anlegen aufgerufen werden. Der Server prüft hart auf Dubletten (Name, E-Mail, Domain), "
+        "erlaubt keine Lieferanten- oder Bankangaben und setzt standardmässig die Preisliste «Standard»."
+    ),
+)
+@werkzeug
+async def kunde_anlegen(
+    ctx: Context,
+    firma: str | None = None,
+    ort: str | None = None,
+    email: str | None = None,
+    kontaktperson: str | None = None,
+    funktion: str | None = None,
+    telefon: str | None = None,
+    strasse: str | None = None,
+    plz: str | None = None,
+    preisliste: str = "Standard",
+    chance_id: int | None = None,
+) -> str:
+    """chance_id = optionale ID einer Verkaufschance in Odoo (fehlende Adressfelder werden daraus übernommen,
+    die Chance wird verknüpft und auf «Qualifiziert» gesetzt). preisliste = Standard oder Wiederverkäufer 10 %."""
+    aufrufer = aufrufer_aus_kopfzeile((ctx.headers or {}).get("authorization"))["name"]
+    try:
+        daten, meldung = await asyncio.to_thread(
+            kunde_vorbereiten, odoo, firma, kontaktperson, funktion, email,
+            telefon, strasse, plz, ort, preisliste, chance_id,
+        )
+    except OdooFehler as fehler:
+        raise ToolError(f"Odoo meldet einen Fehler: {fehler}")
+
+    if daten is None:
+        return meldung
+
+    freigegeben, grund = await freigabe_einholen(ctx, meldung)
+    if not freigegeben:
+        return f"ABGELEHNT DURCH MENSCH ({grund}): Neukunde «{daten['firma']}» wurde nicht angelegt."
+
+    try:
+        return await asyncio.to_thread(kunde_schreiben, odoo, aufrufer, daten)
     except OdooFehler as fehler:
         raise ToolError(f"Odoo meldet einen Fehler: {fehler}")
 

@@ -12,7 +12,15 @@ mcp_servers:
     trust: full
     tools:
       # Zweite Sperre neben der Zugangsliste im Server. Neue Werkzeuge hier und dort eintragen
-      include: [ping, probe_freigabe, lieferantenrechnung_entwurf_anlegen, offerte_entwurf_anlegen]
+      include:
+        - ping
+        - probe_freigabe
+        - lieferantenrechnung_entwurf_anlegen
+        - offerte_entwurf_anlegen
+        - verkaufschance_anlegen
+        - notiz_an_chance
+        - aktivitaet_planen
+        - kunde_anlegen
     # Werkzeugaufruf länger als die Rückfrage (300 s), sonst bricht der Aufruf ab, bevor Beats Antwort ankommt
     timeout: 360
     elicitation:

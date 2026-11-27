@@ -96,7 +96,7 @@ Erfasst ab 10.11.2026, Umsetzungsgrad nachgeführt am 23.11.2026. UC-001 bis UC-
 | UC-010 | Zahlungseingänge offenen Rechnungen zuordnen | K5 | Integration | 2 | Konzept | Bankanbindung ausserhalb |
 | UC-011 | Abgrenzungen zum Monatsende als Buchungsentwurf | U2 | Integration | 1 | Konzept | |
 | UC-012 | Umbuchung bei Fehlbuchung vorschlagen | U2 | Integration | 1 | Konzept | |
-| UC-013 | Kunden und Lieferanten anlegen und nachführen | U4 | Integration | 2 | Konzept | |
+| UC-013 | Kunden und Lieferanten anlegen und nachführen | U4 | Integration | 2 | Umgesetzt für Neukunden (27.11.2026, `kunde_anlegen` mit Freigabe per Knopf) | Dubletten-Sperre, optional verknüpft mit Chance (`UC-029`), keine Lieferanten/Bankkonten |
 | UC-014 | Bankverbindung eines Lieferanten ändern | U2 | Integration | 3 | Konzept, als Falle getestet (13.11.2026) | bewusst heikel, Betrugsmuster. Kein Werkzeug vorgesehen |
 | UC-015 | Eingang und Triage von Mails | KA | Integration | – | Proof of Concept (13.11.2026) | echter Absender im Protokoll, Domain-Abgleich als Skript, Anhänge |
 | UC-016 | Telefonannahme durch einen Voice Agent | KA | Autonomie | – | Konzept | eigener Agent |
@@ -112,7 +112,7 @@ Erfasst ab 10.11.2026, Umsetzungsgrad nachgeführt am 23.11.2026. UC-001 bis UC-
 | UC-026 | Debitorenkontrolle | K5 | Integration | – | Proof of Concept (9.11.2026) | Altersstufen |
 | UC-027 | Lieferantenzahlungen auf Auffälligkeiten prüfen | U2 | Integration | – | Proof of Concept (9.11.2026) | |
 | UC-028 | Pipeline-Bericht pro Woche | K2 | Integration | – | Proof of Concept (Etappe CRM, K3) | Skill `pipeline-bericht` 1.0.0 freigegeben 27.11.2026, C1 bis C4 voll |
-| UC-029 | Akquise Neukunde: von der Mail zur Verkaufschance | K2 | Integration | 1 | Konzept (Etappe CRM, K4) | drei neue Werkzeuge im Werkzeug-Server |
+| UC-029 | Akquise Neukunde: von der Mail zur Verkaufschance | K2 | Integration | 1 | Umgesetzt im Werkzeug-Server (27.11.2026, Etappe CRM K4) | `verkaufschance_anlegen`, `notiz_an_chance`, `aktivitaet_planen`, `offerte_entwurf_anlegen` mit `chance_id`, Skill `neukunde-akquise` 1.0.0 |
 
 ## Leistungsübersicht: was Manni für die Muster AG tut
 
@@ -132,7 +132,7 @@ Stand: **Läuft** (im Labor dauerhaft in Betrieb) · **Getestet** (Proof of Conc
 | Verkauf und CRM | Offerte als Entwurf aus einer Anfrage | | Mail eines bekannten Kunden (über den Posteingang) oder Auftrag im Chat | Erkennt Kunde, Artikel und Mengen, legt das Angebot mit Preisen aus Odoo über den Werkzeug-Server als Entwurf an und meldet getroffene Annahmen | Innendienst prüft und verschickt | Läuft | Chat: 10 von 10 Test-Anfragen richtig. Mail: 7 von 7 Angeboten wie Sollwert | UC-005, UC-015 |
 | Verkauf und CRM | Rückfrage bei unvollständiger Anfrage | Offerte als Entwurf aus einer Anfrage | Anfrage ohne Menge oder ohne passenden Artikel | Rät keine Menge. Schreibt den Entwurf einer höflichen Rückfrage an den Kunden | Verkauf verschickt die Rückfrage | Läuft | Regel im Skill, noch ohne eigenen Test | UC-005, UC-015 |
 | Verkauf und CRM | Anfrage eines Neukunden bearbeiten | | Mail eines unbekannten Absenders (über den Posteingang) | Legt kein Angebot an. Fasst Anliegen, Adresse und passende Artikel zusammen und schlägt vor: Kunde anlegen, dann Offerte | Verkauf legt den Kunden an | Läuft | Test 1: Neukunde richtig erkannt | UC-015 |
-| Verkauf und CRM | Verkaufschance anlegen und qualifizieren | Anfrage eines Neukunden bearbeiten | Neukunden-Anfrage | Ausbau: legt die Verkaufschance im CRM an, prüft Dubletten, recherchiert, schlägt die Qualifizierung vor (auch: muss die Gemeinde ausschreiben?), teilt nach Regel zu und plant die nächste Aufgabe. Danach Angebot als Entwurf | Verkauf qualifiziert, gewinnt oder verliert | Geplant | – | UC-029 |
+| Verkauf und CRM | Verkaufschance anlegen und qualifizieren | Anfrage eines Neukunden bearbeiten | Neukunden-Anfrage | Legt die Verkaufschance in Stufe «Neu» im CRM an, prüft Dubletten, schlägt die Qualifizierung vor (inkl. Ausschreibungspflicht nach IVöB bei Gemeinden), teilt nach Regel zu und plant die nächste Aufgabe. Auf Auftrag im Chat legt Manni über `kunde_anlegen` (mit Freigabe per Knopf) den Neukunden an, setzt die Chance auf «Qualifiziert» und erstellt das Angebot als Entwurf | Verkauf prüft und gibt die Kundenanlage per Knopf frei | In Arbeit | Werkzeug-Server: 31 von 31 Prüfungen in `crm_pruefen.sh` bestanden, Skill `neukunde-akquise` 1.1.0 bereit | UC-029, UC-013 |
 | Verkauf und CRM | Pipeline-Bericht pro Woche | | Auftrag im Chat (Zeitplan wöchentlich geplant) | Ein Skript rechnet die Pipeline fest aus dem CRM (Stufen, Personen, Gewinne, Verluste, Quoten) und prüft feste Regeln (liegende Chancen, vorbeigegangene Abschlussdaten, Dubletten, Klumpenrisiko). Manni schreibt den Kommentar mit Massnahmen und zuständiger Person | Geschäftsleitung entscheidet Massnahmen | Getestet | Mit Skill 1.0.0: C1 bis C4 voll, alle Zahlen und Zuständigkeiten richtig, 40 s, USD 0.008. Ohne Skill schwankte die Qualität (zwei Läufe, falsche Zuständigkeiten, C4 einmal verpasst) | UC-028 |
 | Verkauf und CRM | Offerten nachfassen | | Zeitplan | Findet verschickte Offerten ohne Rückmeldung und erinnert die zuständige Person, mit Entwurf einer Nachfass-Mail | Verkauf fasst nach | Geplant | – | UC-006 |
 | Einkauf und Kreditoren | Lieferantenrechnung als Entwurf erfassen | | PDF-Beleg im Chat. Aus dem Postfach erst, wenn Anhänge gelesen werden | Liest den Beleg, findet Lieferant und Bestellung, schlägt Konten vor, prüft Dubletten und Beträge und legt die Rechnung als Entwurf an | Buchhaltung prüft und bucht | Getestet | 10 von 10 Belegen richtig behandelt | UC-001 |
@@ -307,7 +307,7 @@ Erfasst am 10.11.2026. UC-001 ist ausführlich, weil er der Leitfall für den We
 | Prozess | U4 · Integration · Schreibstufe 2 |
 | Lösungsansatz | Manni legt neue Kontakte aus Anfragen oder Belegen an und führt Adressen nach. Doppelte Kontakte prüft der Server vorher. |
 | Kontrollpunkte | Freigabe per Knopf. Bankverbindung ausgenommen (UC-014) |
-| Umsetzungsgrad | Konzept |
+| Umsetzungsgrad | Umgesetzt für Neukunden (27.11.2026, Werkzeug `kunde_anlegen` mit Freigabe per Knopf, harte Dubletten-Sperre, optional verknüpft mit Verkaufschance aus UC-029). Lieferanten und Adressänderungen noch Konzept |
 
 ### UC-014 Bankverbindung eines Lieferanten ändern
 
@@ -477,4 +477,4 @@ Erfasst am 10.11.2026. UC-001 ist ausführlich, weil er der Leitfall für den We
 | Ausgangslage | Anfragen von Neukunden bleiben im Posteingang liegen oder werden ohne Qualifizierung offeriert. Bei Gemeinden ist oft unklar, ob ausgeschrieben werden muss. |
 | Lösungsansatz | Aus der Mail legt Manni eine Verkaufschance an, prüft Dubletten, recherchiert, schlägt die Qualifizierung vor, teilt nach Regel zu und plant die nächste Aufgabe für den Verkauf. Ist die Chance qualifiziert, folgt das Angebot als Entwurf (UC-005). Neue Werkzeuge im Werkzeug-Server: Chance anlegen, Notiz, Aktivität. |
 | Kontrollpunkte | Verkauf qualifiziert, setzt Stufen, gewinnt oder verliert. Manni legt keine Kunden an |
-| Umsetzungsgrad | Konzept (Etappe CRM, K4, Detailplan CRM (intern)) |
+| Umsetzungsgrad | Werkzeuge und Skill gebaut und gegen Odoo geprüft (27.11.2026, Etappe CRM K4, Detailplan CRM (intern)): `verkaufschance_anlegen`, `notiz_an_chance`, `aktivitaet_planen` und `offerte_entwurf_anlegen` mit `chance_id` (`crm_pruefen.sh` 25 von 25 ok), Skill `neukunde-akquise` 1.0.0 |

@@ -1,8 +1,8 @@
 ---
 name: offerte-erstellen
 description: Kundenanfrage der Muster AG lesen, Kunde und Artikel in Odoo bestimmen und ein Angebot als Entwurf anlegen, über das Werkzeug offerte_entwurf_anlegen des Werkzeug-Servers. Nie versenden, nie bestätigen, keine Preise oder Rabatte festlegen.
-version: 1.0.1
-author: Beat Hutter, Claude
+version: 1.2.0
+author: Beat Hutter, Claude, Antigravity
 license: MIT
 platforms: [linux]
 metadata:
@@ -23,7 +23,10 @@ Dieser Skill wird nur von Beat geändert.
 
 ## 2. In Odoo nachschlagen (Skill `odoo-lesen`)
 
-- **Kunde:** in `res.partner` mit `customer_rank > 0` suchen, über Firmenname und Mail-Domain des Absenders. Du brauchst die ID. Ist der Kunde nicht in Odoo, legst du **kein** Angebot an, nimmst keinen ähnlichen Kunden und meldest: «Neukunde, muss zuerst angelegt werden».
+- **Kunde:** in `res.partner` mit `customer_rank > 0` suchen, über Firmenname und Mail-Domain des Absenders. Du brauchst die ID. Ist der Kunde nicht in Odoo:
+  - Kommt die Anfrage aus dem Posteingang oder soll zuerst akquiriert werden: wechsle zum Skill **`neukunde-akquise` Teil A** (Verkaufschance in Stufe «Neu» anlegen, kein Angebot).
+  - Beauftragt dich Beat im Chat ausdrücklich, den Neukunden anzulegen (und ggf. gleich zu offerieren): wechsle zu **`neukunde-akquise` Teil B** und lege den Kunden zuerst über `mcp__muster__kunde_anlegen` (mit Freigabe per Knopf und optional `chance_id`) an.
+- **Verkaufschance im CRM (optional):** Prüfe in `crm.lead` (`type = 'opportunity'`, `active = True`), ob für diesen Kunden und dieses Vorhaben eine qualifizierte Verkaufschance existiert (oder dir eine `chance_id` genannt wurde). Steht die Chance auf «Qualifiziert» (oder höher), übergibst du ihre ID als `chance_id` beim Anlegen des Angebots.
 - **Artikel:** in `product.product` mit `sale_ok = True` über Name und Code (`default_code`, z. B. `BA-100`). Das Sortiment hat 25 Artikel.
 - Ein Blick auf frühere Angebote des Kunden (`sale.order`) hilft, zum Beispiel bei der Variante.
 
@@ -40,7 +43,7 @@ Dieser Skill wird nur von Beat geändert.
 
 ## 4. Angebot anlegen
 
-Werkzeug `mcp__muster__offerte_entwurf_anlegen` mit `kunde_id`, `positionen` (je `artikel` und `menge`), `kundenreferenz` (z. B. «Anfrage vom 9.11.2026, Peter Ammann») und `hinweis`.
+Werkzeug `mcp__muster__offerte_entwurf_anlegen` mit `kunde_id`, `positionen` (je `artikel` und `menge`), `kundenreferenz` (z. B. «Anfrage vom 9.11.2026, Peter Ammann»), `hinweis` und optional `chance_id` (ID einer qualifizierten Verkaufschance aus `crm.lead`).
 
 - **Preise und Rabatte setzt Odoo** aus der Preisliste des Kunden (Standard oder Wiederverkäufer 10 %). Du kannst und sollst sie nicht beeinflussen.
 - In den **Hinweis** an den Innendienst gehört alles, was das Werkzeug nicht abbildet: Rabattwunsch, gewünschter Liefertermin, fehlende Artikel, Sonderwünsche, deine Annahmen.

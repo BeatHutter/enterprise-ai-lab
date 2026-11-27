@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 
 from pydantic import BaseModel, Field
 
+from crm import manni_autor_id
 from odoo import Odoo, OdooFehler
 
 WARN_TOTAL = 100_000.00  # CHF netto
@@ -28,7 +29,7 @@ class Ablehnung(Exception):
     pass
 
 
-def _pruefen(odoo: Odoo, kunde_id: int, positionen: list[OffertPosition]):
+def _pruefen(odoo: Odoo, kunde_id: int, positionen: list[OffertPosition], chance_id: int | None = None):
     if not positionen:
         raise Ablehnung("Die Offerte hat keine Positionen.")
 
@@ -38,6 +39,30 @@ def _pruefen(odoo: Odoo, kunde_id: int, positionen: list[OffertPosition]):
     if kunde[0]["customer_rank"] <= 0:
         raise Ablehnung(f"{kunde[0]['name']} ist in Odoo nicht als Kunde geführt. Neukunden legt dieses Werkzeug "
                         "nicht an (UC-013). Bitte Beat melden.")
+
+    chance = None
+    if chance_id is not None:
+        chancen = odoo.search_read(
+            "crm.lead",
+            [("id", "=", chance_id), ("type", "=", "opportunity")],
+            ["id", "name", "stage_id", "user_id", "partner_id", "active"],
+            context={"active_test": False},
+        )
+        if not chancen:
+            raise Ablehnung(f"Keine Verkaufschance mit der ID {chance_id} gefunden.")
+        chance = chancen[0]
+        if not chance["active"]:
+            raise Ablehnung(f"Verkaufschance ID {chance_id} («{chance['name']}») ist archiviert/verloren.")
+        if chance["stage_id"][1] == "Neu":
+            raise Ablehnung(
+                f"Verkaufschance ID {chance_id} («{chance['name']}») steht noch in der Stufe «Neu». "
+                "Ein Angebot darf erst angelegt werden, wenn der Verkauf die Chance auf «Qualifiziert» gesetzt hat."
+            )
+        if chance["partner_id"] and chance["partner_id"][0] != kunde_id:
+            raise Ablehnung(
+                f"Verkaufschance ID {chance_id} gehört zu {chance['partner_id'][1]} (ID {chance['partner_id'][0]}), "
+                f"nicht zu {kunde[0]['name']} (ID {kunde_id})."
+            )
 
     codes = sorted({p.artikel.strip().upper() for p in positionen})
     artikel = {a["default_code"]: a for a in odoo.search_read(
@@ -57,7 +82,7 @@ def _pruefen(odoo: Odoo, kunde_id: int, positionen: list[OffertPosition]):
         if a["uom_id"][1] in STUECK_EINHEITEN and p.menge != int(p.menge):
             raise Ablehnung(f"{a['default_code']} wird in ganzen Stück verkauft, nicht {p.menge}.")
 
-    return kunde[0]["name"], artikel
+    return kunde[0]["name"], artikel, chance
 
 
 def _warnungen(odoo: Odoo, kunde_id: int, kunde_name: str, positionen, artikel, order_id: int) -> list[str]:
@@ -81,9 +106,10 @@ def _warnungen(odoo: Odoo, kunde_id: int, kunde_name: str, positionen, artikel, 
 
 
 def angebot_anlegen(odoo: Odoo, aufrufer: str, kunde_id: int, positionen: list[OffertPosition],
-                    kundenreferenz: str | None = None, hinweis: str | None = None) -> str:
+                    kundenreferenz: str | None = None, hinweis: str | None = None,
+                    chance_id: int | None = None) -> str:
     try:
-        kunde_name, artikel = _pruefen(odoo, kunde_id, positionen)
+        kunde_name, artikel, chance = _pruefen(odoo, kunde_id, positionen, chance_id)
     except Ablehnung as grund:
         return f"ABGELEHNT: {grund}"
 
@@ -94,10 +120,16 @@ def angebot_anlegen(odoo: Odoo, aufrufer: str, kunde_id: int, positionen: list[O
     }
     if kundenreferenz:
         werte["client_order_ref"] = kundenreferenz.strip()
+    if chance:
+        werte["opportunity_id"] = chance["id"]
+        if chance.get("user_id"):
+            werte["user_id"] = chance["user_id"][0]
     order_id = odoo.call("sale.order", "create", werte)
+    if chance and not chance.get("partner_id"):
+        odoo.call("crm.lead", "write", [chance["id"]], {"partner_id": kunde_id})
     order = odoo.search_read("sale.order", [("id", "=", order_id)],
                              ["name", "state", "amount_untaxed", "amount_total", "pricelist_id", "validity_date",
-                              "user_id"])[0]
+                              "user_id", "opportunity_id"])[0]
     if order["state"] != "draft":
         return f"FEHLER: Angebot {order['name']} steht im Status {order['state']} statt Entwurf. Bitte sofort Beat melden."
 
@@ -108,21 +140,26 @@ def angebot_anlegen(odoo: Odoo, aufrufer: str, kunde_id: int, positionen: list[O
         warnungen.append(f"Total netto {order['amount_untaxed']:,.2f} liegt über {WARN_TOTAL:,.0f}.")
 
     hinweise = []
-    notiz = f"Angebot als Entwurf angelegt durch den Werkzeug-Server im Auftrag von {aufrufer}. Bitte prüfen und versenden."
+    notiz = f"Angebot als Entwurf angelegt durch Manni (KI-Assistent) über den Werkzeug-Server (Aufrufer: {aufrufer}). Bitte prüfen und versenden."
     if hinweis:
         notiz += f" Hinweis zur Anfrage: {hinweis.strip()}"
     if warnungen:
         notiz += " WARNUNG: " + " ".join(warnungen)
     try:
         # Interne Notiz (mt_note): geht an niemanden hinaus, auch nicht an den Kunden als Follower
-        odoo.call("sale.order", "message_post", [order_id], body=notiz, subtype_xmlid="mail.mt_note")
+        post_kwargs = {"body": notiz, "message_type": "comment", "subtype_xmlid": "mail.mt_note"}
+        autor_id = manni_autor_id(odoo)
+        if autor_id:
+            post_kwargs["author_id"] = autor_id
+        odoo.call("sale.order", "message_post", [order_id], **post_kwargs)
     except OdooFehler as fehler:
         hinweise.append(f"Notiz am Angebot nicht möglich ({fehler}).")
 
     positionen_text = "; ".join(
         f"{z['product_id'][1]}: {z['product_uom_qty']:g} × {z['price_unit']:,.2f}"
         + (f" − {z['discount']:g} %" if z["discount"] else "") + f" = {z['price_subtotal']:,.2f}" for z in zeilen)
-    return (f"ANGEBOT ALS ENTWURF ANGELEGT: {order['name']} für {kunde_name}, Preisliste {order['pricelist_id'][1]}, "
+    chance_text = f", verknüpft mit Chance ID {chance['id']} («{chance['name']}»)" if chance else ""
+    return (f"ANGEBOT ALS ENTWURF ANGELEGT: {order['name']} für {kunde_name}{chance_text}, Preisliste {order['pricelist_id'][1]}, "
             f"Total netto {order['amount_untaxed']:,.2f} CHF, inkl. MWST {order['amount_total']:,.2f} CHF, "
             f"gültig bis {order['validity_date']}, Verkäufer {order['user_id'][1]}. Positionen: {positionen_text}. "
             f"Versendet und bestätigt wird durch einen Menschen. Link: {ODOO_LINK.format(id=order_id)}"
