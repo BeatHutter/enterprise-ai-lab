@@ -6,7 +6,7 @@
   <title>Enterprise AI Lab – Beat Hutter</title>
   <meta name="description" content="Project profile, work in progress: enterprise-grade automation with AI agents. A use case lab by Beat Hutter with a fictitious Swiss company, guardrails, human-in-the-loop, AI governance and evaluation against expected values.">
   <link rel="alternate" hreflang="de" href="../">
-  <link rel="stylesheet" href="../style.css?v=20261125b">
+  <link rel="stylesheet" href="../style.css?v=20261127a">
   <link rel="icon" href="../assets/logo.svg?v=2" type="image/svg+xml">
 </head>
 <body>
@@ -16,6 +16,7 @@
     <nav class="top-nav" aria-label="Main navigation">
       <a class="hide-sm" href="#example">Example</a>
       <a class="hide-sm" href="#results">Results</a>
+      <a class="hide-sm" href="#security">Security</a>
       <a class="hide-sm" href="#about">About me</a>
       <a class="hide-sm" href="#technology">Technology</a>
       <a href="privacy.html">Privacy</a>
@@ -29,7 +30,7 @@
     <section class="hero">
       <div class="hero-grid">
       <div class="hero-text">
-      <p class="eyebrow">Project profile · Work in progress · As of 25 Nov 2026</p>
+      <p class="eyebrow">Project profile · Work in progress · As of 27 Nov 2026</p>
       <h1>Enterprise&#8209;grade automation with AI agents</h1>
       <p class="subline">What works in business processes, with guardrails, governance and evaluation against expected values.</p>
       <p class="lead">In my use case lab, an AI agent works inside a fictitious Swiss company: quotes, invoices, monthly reporting, inbox. Whatever can be solved deterministically is done by Python scripts without AI. The agent may read and create drafts. Posting, sending and paying stay with a human (human-in-the-loop).</p>
@@ -45,12 +46,12 @@
       </figure>
       </div>
       <div class="kpis">
-        <div class="kpi"><strong>5<span class="asof-mark">*</span></strong><span>use cases built and evaluated, plus infrastructure and agent framework</span></div>
-        <div class="kpi"><strong>90 h<span class="asof-mark">*</span></strong><span>in four weeks from installation to running automation</span></div>
+        <div class="kpi"><strong>6<span class="asof-mark">*</span></strong><span>use cases built and evaluated, plus infrastructure and agent framework</span></div>
+        <div class="kpi"><strong>93 h<span class="asof-mark">*</span></strong><span>in about four weeks from installation to running automation</span></div>
         <div class="kpi"><strong>&lt; CHF 0.01<span class="asof-mark">*</span></strong><span>model cost per standard process such as a quote or invoice, excluding deep dives and ad-hoc queries</span></div>
         <div class="kpi"><strong>0<span class="asof-mark">*</span></strong><span>wrong entries in the ERP caused by built-in traps such as prompt injection</span></div>
       </div>
-      <p class="asof-note"><span class="asof-mark">*</span> As of 25 Nov 2026. The lab keeps growing, figures marked with an asterisk are updated with every release.</p>
+      <p class="asof-note"><span class="asof-mark">*</span> As of 27 Nov 2026. The lab keeps growing, figures marked with an asterisk are updated with every release.</p>
     </section>
 
     <section id="lab">
@@ -91,7 +92,7 @@
 
     <section id="results">
       <h2>What is automated today<span class="asof-mark">*</span></h2>
-      <p class="section-lead">Five use cases are built and evaluated, a sixth is in daily use. All runs used DeepSeek, a low-cost large language model (LLM).</p>
+      <p class="section-lead">Six use cases are built and evaluated, a seventh is in daily use. All runs used DeepSeek, a low-cost large language model (LLM).</p>
       <div class="table-wrap">
         <table class="results">
           <thead><tr><th scope="col">Use case</th><th scope="col">What is automated</th><th scope="col">Evaluation and result</th><th scope="col">Model cost</th></tr></thead>
@@ -101,6 +102,7 @@
             <tr><td>Monthly report</td><td data-label="What is automated">KPIs come from fixed calculation paths (semantic layer). The model comments on them and points out anomalies</td><td data-label="Evaluation and result">October 2026 with 5 built-in anomalies, such as a supplier price increase, a late-paying customer and an invoice paid twice. About 250 figures, all correct. 3 anomalies fully found, 2 partly</td><td class="cost" data-label="Model cost">about CHF 0.03 per report</td></tr>
             <tr><td>Inbox</td><td data-label="What is automated">Every email is classified and handled: prepare a quote, check a reminder against the ERP, summary with a proposal. Sending is technically blocked</td><td data-label="Evaluation and result">12 mixed emails, including an order, a complaint, a reminder, a job application, advertising and spam. 11 of 12 classified correctly, 7 of 7 emails needing action handled correctly</td><td class="cost" data-label="Model cost">below CHF 0.01 per email</td></tr>
             <tr><td>Inbox with traps</td><td data-label="What is automated">Deception, wrong bank details and hidden instructions are detected and reported</td><td data-label="Evaluation and result">3 traps in the same set: forged bank details, hidden instruction, deception attempt. All 3 reported to the administrator, none led to an entry in the ERP. The model missed the forged sender domain, this check moves into code</td><td class="cost" data-label="Model cost">included in the set</td></tr>
+            <tr><td>Pipeline report (CRM)</td><td data-label="What is automated">A script computes figures and checks fixed rules (stalled deals, duplicates, concentration risk). The model comments and suggests actions with the responsible person</td><td data-label="Evaluation and result">41 sales opportunities with 4 built-in test cases. With the domain skill, all 4 fully detected and all figures and owners correct</td><td class="cost" data-label="Model cost">below CHF 0.01 per report</td></tr>
             <tr><td>Questions about the ERP</td><td data-label="What is automated">The agent answers questions in natural language, such as “Which customers are more than 90 days overdue?”. It looks them up in the ERP, with read-only rights</td><td data-label="Evaluation and result">In daily use. A dedicated test set with expected values will follow</td><td class="cost" data-label="Model cost">depends on the question</td></tr>
           </tbody>
         </table>
@@ -170,6 +172,54 @@
       </ol>
     </section>
 
+    <section id="security">
+      <h2>Security model: defence in depth</h2>
+      <p class="section-lead">The security model follows a defence-in-depth approach: multiple layers restrict the agent at the technical level, from access control down to network isolation.</p>
+      <div class="defense-grid">
+        <div class="defense-layers">
+          <div class="def-layer">
+            <div class="def-badge">1</div>
+            <div class="def-body">
+              <h3>Access &amp; channels <span class="def-tag">Perimeter</span></h3>
+              <p>Two independent checks protect the chat (Cloudflare Access plus service-level verification). Each channel – web chat, Telegram, inbox – has its own narrowly scoped set of tools (scoped channels).</p>
+            </div>
+          </div>
+          <div class="def-layer">
+            <div class="def-badge">2</div>
+            <div class="def-body">
+              <h3>Mandate &amp; input <span class="def-tag">Input guardrails</span></h3>
+              <p>A fixed topic guard per channel rejects off-topic requests. Content from emails and documents is treated as data to process; detected prompt injections are reported and not executed.</p>
+            </div>
+          </div>
+          <div class="def-layer">
+            <div class="def-badge">3</div>
+            <div class="def-body">
+              <h3>Rights, tools &amp; approval <span class="def-tag">Least privilege &amp; HITL</span></h3>
+              <p>The agent has read-only access to the ERP (Odoo) and mailbox. Writing goes exclusively through narrow MCP server tools as drafts. Anything consequential requires human approval by button.</p>
+            </div>
+          </div>
+          <div class="def-layer">
+            <div class="def-badge">4</div>
+            <div class="def-body">
+              <h3>Host &amp; network lock <span class="def-tag">Host &amp; egress isolation</span></h3>
+              <p>The agent runs under an isolated service user with no access to the host or containers. Outbound network traffic is restricted via an egress allowlist to a small set of approved destinations.</p>
+            </div>
+          </div>
+        </div>
+        <aside class="defense-side">
+          <div class="side-box">
+            <h3>Cross-cutting: transparency &amp; hygiene</h3>
+            <ul class="def-list">
+              <li><strong>Observability:</strong> Every model and tool call is logged, including tokens and cost.</li>
+              <li><strong>Cost alert:</strong> A daily check flags outliers (FinOps).</li>
+              <li><strong>Audit log:</strong> The tool server logs every write attempt, including rejected ones.</li>
+              <li><strong>Secrets hygiene:</strong> Credentials are kept separate from code and never enter the repository.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
     <section id="learned">
       <h2>Lessons learned</h2>
       <p class="section-lead">Insights so far. The list grows with the lab.</p>
@@ -199,7 +249,7 @@
         <div class="card facts">
           <h3>Time and cost<span class="asof-mark">*</span></h3>
           <dl>
-            <dt>Effort</dt><dd>About 90 hours in four weeks (28 October to 25 November 2026)</dd>
+            <dt>Effort</dt><dd>About 93 hours in about four weeks (28 October to 27 November 2026)</dd>
             <dt>Model cost</dt><dd>Negligible during testing, below CHF 0.01 per standard process</dd>
             <dt>Licence cost</dt><dd>None for ERP and agent harness (open source: Odoo Community with OCA modules, Hermes). Microsoft 365 is planned for workplace use cases</dd>
             <dt>Hardware</dt><dd>Separate business laptop in my home network</dd>
@@ -211,7 +261,7 @@
 
     <section id="roadmap">
       <h2>Overview: status and outlook</h2>
-      <p class="section-lead">The foundations are in place, five use cases are evaluated. The backlog is updated continuously and priorities may change. This is the current plan.</p>
+      <p class="section-lead">The foundations are in place, six use cases are evaluated. The backlog is updated continuously and priorities may change. This is the current plan.</p>
       <div class="roadmap">
         <div class="phase now">
           <h3>In operation</h3>
@@ -222,8 +272,9 @@
             <li><strong>Semantic layer</strong> for financial KPIs</li>
             <li><strong>Inbox</strong> on a schedule</li>
             <li><strong>Observability and cost alert</strong> with Langfuse</li>
-            <li><strong>CRM</strong> in the ERP (Odoo)</li>
+            <li><strong>CRM</strong> in the ERP (Odoo) with pipeline report</li>
             <li><strong>Browser chat</strong> for live demos</li>
+            <li><strong>Egress allowlist</strong> for the agent</li>
           </ul>
         </div>
         <div class="phase">
@@ -234,7 +285,7 @@
             <li><strong>FinOps:</strong> budgets per use case</li>
             <li><strong>Invoices</strong> straight from the mailbox</li>
             <li><strong>Approval workflows</strong> for postings</li>
-            <li><strong>Pipeline report</strong> in the CRM and a project bot on this site</li>
+            <li><strong>New customer acquisition</strong> in CRM and a <strong>project bot</strong> on this site</li>
           </ul>
         </div>
         <div class="phase">
@@ -342,7 +393,7 @@
       <a href="https://github.com/BeatHutter/enterprise-ai-lab" target="_blank" rel="noopener">GitHub</a>
       <a href="privacy.html">Privacy</a>
     </nav>
-    <p class="asof"><span class="asof-mark">*</span> As of 25 Nov 2026. This page is updated continuously.</p>
+    <p class="asof"><span class="asof-mark">*</span> As of 27 Nov 2026. This page is updated continuously.</p>
   </div>
 </footer>
 </body>

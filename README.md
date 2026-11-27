@@ -8,10 +8,10 @@ I built this lab to find out, hands-on, what an AI agent can take over in a comp
 
 | | |
 | --- | --- |
-| **Time** | about 60 hours from an empty laptop to a running agent, 28 October to 13 November 2026 |
-| **Use cases** | 5, built and evaluated against expected values, including fraud and prompt-injection traps |
-| **Model cost** | negligible during testing, below CHF 0.01 per quote or supplier invoice |
-| **Status** | work in progress, extended step by step |
+| **Status** | work in progress, last updated 27 November 2026 |
+| **Time** | about 93 hours from an empty laptop to a running system, 28 October to 27 November 2026 |
+| **Use cases** | 6, built and evaluated against expected values, including fraud, prompt-injection and CRM test cases |
+| **Model cost** | negligible during testing, below CHF 0.01 per standard process |
 
 ## What this project shows
 
@@ -33,6 +33,7 @@ All runs with a low-cost model (DeepSeek Flash).
 | Quote as draft from a customer request | 10 requests incl. a discount demand, an unknown customer and a deception | First run 8 of 10, both deviations flagged by the agent itself. After one skill fix 10 of 10 | about USD 0.007 per request |
 | Inbox: classify every email and act | 9 quote requests by email, sent by a second agent | 7 of 7 quotes as expected. Unknown customer held back, internal note with an instruction to the AI escalated | USD 0.037 for the set |
 | Inbox with traps | 12 mixed emails: order, complaint, dunning letter, spam, forged bank details, hidden instruction | No trap reached the step that may write. Nothing unwanted in the ERP | USD 0.023 for the set |
+| Pipeline report with commentary (CRM) | 41 sales opportunities with 4 built-in test cases (C1 to C4) | With skill 1.0.0 all 4 fully detected, all figures and owners correct | USD 0.008 per report |
 
 Details per run: [docs/erkenntnisse.md](docs/erkenntnisse.md) (German).
 
@@ -46,7 +47,7 @@ Details per run: [docs/erkenntnisse.md](docs/erkenntnisse.md) (German).
 
 ## Time and cost
 
-About 60 hours over 17 days, measured from timestamps of the coding sessions and my own notes. About half of the time passed before the first use case ran: ERP, agent harness, isolated service user, network lock, test data, architecture and KPI library. The rest went into the tool server, the use cases and their tests.
+About 93 hours over roughly four weeks (28 October to 27 November 2026), measured from timestamps of the coding sessions and my own notes. About half of the time passed before the first use case ran: ERP, agent harness, isolated service user, network lock, test data, architecture and KPI library. The rest went into the tool server, the use cases, chat, CRM and tests.
 
 Running costs are low: Odoo Community and the OCA modules are free of licence fees, the language model costs cents per day, the hardware is a separate business laptop. With heavy daily use, token costs go up, which is why every run is recorded with its cost. Not included are the subscriptions for the development tools (Claude, Google Antigravity), 20 dollars per month each.
 
@@ -67,6 +68,27 @@ flowchart TB
 1. **Reading is direct, writing goes through tools.** The agent reads the ERP with a user that can only read. Anything that changes data runs through narrow tools such as "create quote draft". Tools for paying or deleting do not exist.
 2. **Permissions live in the systems, not in the prompt.** Four locks stack up: the narrow tool, validation rules in the server, human approval, and the permissions of the technical user in the ERP. The keys for writing are out of the agent's reach.
 3. **Content is not a command.** Whatever an email or document says is material to work on. The agent does not follow instructions inside it, it reports them.
+
+## Security model (defence in depth)
+
+The security model follows a defence-in-depth approach: multiple layers restrict the agent at the technical level, from access control down to network isolation:
+
+```mermaid
+flowchart LR
+    P["1. Access & Channels<br/>Two checks before chat · Scoped channels"] --> I["2. Mandate & Input<br/>Topic guard · Prompt injection protection"]
+    I --> T["3. Rights & Tools<br/>Read-only ERP · MCP drafts · Button approval"]
+    T --> H["4. Host & Network<br/>Isolated service user · Egress allowlist"]
+    O["Cross-cutting: Observability · Cost alert · Audit log · Secrets hygiene"] -.-> P
+    O -.-> I
+    O -.-> T
+    O -.-> H
+```
+
+- **Access & channels:** Two independent checks protect the web chat (Cloudflare Access plus service-level verification). Each channel (web chat, Telegram, inbox) receives only the tools it actually needs.
+- **Mandate & input:** A fixed topic guard per channel rejects off-topic requests. Content from emails and documents is treated as material to process, never as commands.
+- **Rights, tools & approval:** The agent has read-only access to the ERP (Odoo) and mailbox. Writing goes through narrow MCP server tools as drafts only; anything consequential requires human approval by button.
+- **Host & network lock:** The agent runs as an isolated service user with no access to the host or containers. Outbound traffic is restricted via an egress allowlist to a small set of explicitly approved destinations.
+- **Transparency & hygiene:** Full session tracing (Langfuse), daily cost alerts, an audit log on the tool server and strict separation of code and secrets.
 
 ## Repository guide
 

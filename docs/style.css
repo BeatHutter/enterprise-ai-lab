@@ -371,3 +371,32 @@ footer.bottom a:hover { color: var(--green-800); }
   .shots-row { grid-template-columns: 1fr; }
   .shot-phone { max-width: 200px; justify-self: center; }
 }
+
+/* ---------- Sicherheitsmodell (Defense in Depth) ---------- */
+.defense-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+.defense-layers { display: grid; gap: 12px; position: relative; }
+.def-layer {
+  display: grid; grid-template-columns: 36px 1fr; gap: 16px; align-items: start;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px;
+  box-shadow: var(--shadow);
+}
+.def-badge {
+  width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--green-100); color: var(--green-800); font-weight: 800; font-size: 15px;
+}
+.def-body h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 6px; font-size: 17.5px; }
+.def-tag {
+  font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--green-800); background: var(--green-100); border-radius: 999px; padding: 2px 9px;
+}
+.def-body p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.defense-side { display: grid; gap: 14px; }
+.defense-side .side-box { padding: 18px 20px; }
+.defense-side .side-box h3 { font-size: 16.5px; margin: 0 0 12px; }
+.def-list { margin: 0; padding-left: 18px; display: grid; gap: 10px; color: var(--muted); font-size: 15px; }
+.def-list li::marker { color: var(--green-600); }
+.def-list strong { color: var(--fg); }
+.defense-side .notice { margin: 0; }
+@media (max-width: 960px) {
+  .defense-grid { grid-template-columns: 1fr; }
+}

@@ -111,14 +111,14 @@ Erfasst ab 10.11.2026, Umsetzungsgrad nachgeführt am 23.11.2026. UC-001 bis UC-
 | UC-025 | Fragen zu Geschäftszahlen beantworten | U2 | Integration | – | Umgesetzt (seit 3.11.2026) | |
 | UC-026 | Debitorenkontrolle | K5 | Integration | – | Proof of Concept (9.11.2026) | Altersstufen |
 | UC-027 | Lieferantenzahlungen auf Auffälligkeiten prüfen | U2 | Integration | – | Proof of Concept (9.11.2026) | |
-| UC-028 | Pipeline-Bericht pro Woche | K2 | Integration | – | Konzept, in Arbeit (Etappe CRM, K3) | Leserechte und Testdaten stehen (23.11.2026) |
+| UC-028 | Pipeline-Bericht pro Woche | K2 | Integration | – | Proof of Concept (Etappe CRM, K3) | Skill `pipeline-bericht` 1.0.0 freigegeben 27.11.2026, C1 bis C4 voll |
 | UC-029 | Akquise Neukunde: von der Mail zur Verkaufschance | K2 | Integration | 1 | Konzept (Etappe CRM, K4) | drei neue Werkzeuge im Werkzeug-Server |
 
 ## Leistungsübersicht: was Manni für die Muster AG tut
 
 Sicht nach Geschäftsprozessen, nicht nach Funktionen. Eine Zeile pro Prozess, den Manni ganz oder teilweise übernimmt. **Goldene Quelle** für die Seite Leistungsübersicht (intern). Die Seite wird mit `python3 docs/leistungsuebersicht.py` aus dieser Tabelle und der Übersicht oben erzeugt, nie von Hand geändert. Nachführen bei jedem Testlauf und am Ende jeder Etappe, im selben Commit.
 
-Zuletzt nachgeführt: 23.11.2026
+Zuletzt nachgeführt: 27.11.2026
 
 **Ordnung:** nach Geschäftsprozess, nicht nach Kanal. Jeder Prozess steht genau einmal, in seinem Fachbereich. Der Kanal (Mail, Chat, Zeitplan) steht beim Auslöser. Unter «Posteingang» steht nur, was am Postfach selbst geschieht: sichten, einordnen, aussortieren, abwehren und an den zuständigen Prozess übergeben. Löst eine Mail einen Fachprozess aus, steht dieser in seinem Bereich mit dem Auslöser «über den Posteingang» (Entscheid Beat 23.11.2026).
 
@@ -133,7 +133,7 @@ Stand: **Läuft** (im Labor dauerhaft in Betrieb) · **Getestet** (Proof of Conc
 | Verkauf und CRM | Rückfrage bei unvollständiger Anfrage | Offerte als Entwurf aus einer Anfrage | Anfrage ohne Menge oder ohne passenden Artikel | Rät keine Menge. Schreibt den Entwurf einer höflichen Rückfrage an den Kunden | Verkauf verschickt die Rückfrage | Läuft | Regel im Skill, noch ohne eigenen Test | UC-005, UC-015 |
 | Verkauf und CRM | Anfrage eines Neukunden bearbeiten | | Mail eines unbekannten Absenders (über den Posteingang) | Legt kein Angebot an. Fasst Anliegen, Adresse und passende Artikel zusammen und schlägt vor: Kunde anlegen, dann Offerte | Verkauf legt den Kunden an | Läuft | Test 1: Neukunde richtig erkannt | UC-015 |
 | Verkauf und CRM | Verkaufschance anlegen und qualifizieren | Anfrage eines Neukunden bearbeiten | Neukunden-Anfrage | Ausbau: legt die Verkaufschance im CRM an, prüft Dubletten, recherchiert, schlägt die Qualifizierung vor (auch: muss die Gemeinde ausschreiben?), teilt nach Regel zu und plant die nächste Aufgabe. Danach Angebot als Entwurf | Verkauf qualifiziert, gewinnt oder verliert | Geplant | – | UC-029 |
-| Verkauf und CRM | Pipeline-Bericht pro Woche | | Zeitplan, wöchentlich | Liest die Verkaufschancen im CRM: offene Chancen nach Stufe, gewichteter Wert, Abschlüsse und Verluste, liegengebliebene Chancen, Dubletten | Geschäftsleitung entscheidet Massnahmen | In Arbeit | Nullmessung ohne Skill: Prüffälle C1 bis C4 alle erkannt, keine Fehlalarme, Zahlen richtig, 3 Min., USD 0.02 | UC-028 |
+| Verkauf und CRM | Pipeline-Bericht pro Woche | | Auftrag im Chat (Zeitplan wöchentlich geplant) | Ein Skript rechnet die Pipeline fest aus dem CRM (Stufen, Personen, Gewinne, Verluste, Quoten) und prüft feste Regeln (liegende Chancen, vorbeigegangene Abschlussdaten, Dubletten, Klumpenrisiko). Manni schreibt den Kommentar mit Massnahmen und zuständiger Person | Geschäftsleitung entscheidet Massnahmen | Getestet | Mit Skill 1.0.0: C1 bis C4 voll, alle Zahlen und Zuständigkeiten richtig, 40 s, USD 0.008. Ohne Skill schwankte die Qualität (zwei Läufe, falsche Zuständigkeiten, C4 einmal verpasst) | UC-028 |
 | Verkauf und CRM | Offerten nachfassen | | Zeitplan | Findet verschickte Offerten ohne Rückmeldung und erinnert die zuständige Person, mit Entwurf einer Nachfass-Mail | Verkauf fasst nach | Geplant | – | UC-006 |
 | Einkauf und Kreditoren | Lieferantenrechnung als Entwurf erfassen | | PDF-Beleg im Chat. Aus dem Postfach erst, wenn Anhänge gelesen werden | Liest den Beleg, findet Lieferant und Bestellung, schlägt Konten vor, prüft Dubletten und Beträge und legt die Rechnung als Entwurf an | Buchhaltung prüft und bucht | Getestet | 10 von 10 Belegen richtig behandelt | UC-001 |
 | Einkauf und Kreditoren | Mahnung eines Lieferanten abklären | | Zahlungserinnerung per Mail (über den Posteingang) | Prüft in Odoo, ob die gemahnte Rechnung erfasst und bezahlt ist, und nennt das Ergebnis mit Betrag und Fälligkeit | Buchhaltung zahlt oder widerspricht | Läuft | Test 2 | UC-015 |
@@ -467,7 +467,7 @@ Erfasst am 10.11.2026. UC-001 ist ausführlich, weil er der Leitfall für den We
 | Lösungsansatz | Manni liest die Verkaufschancen in Odoo CRM (nur lesend) und schreibt jede Woche einen Bericht: offene Chancen nach Stufe, gewichteter Wert, Abschlüsse und Verluste mit Grund, liegengebliebene Chancen, vorbeigegangene Abschlussdaten, Dubletten. |
 | Kontrollpunkte | Geschäftsleitung entscheidet über Massnahmen |
 | Validierungsexperiment | Prüffälle C1 bis C4 ([tests/prueffaelle.md](../tests/prueffaelle.md)) |
-| Umsetzungsgrad | Konzept, in Arbeit (Etappe CRM, K3, Detailplan CRM (intern)). Leserechte und Testdaten stehen (23.11.2026) |
+| Umsetzungsgrad | Proof of Concept (Etappe CRM, K3, Detailplan CRM (intern)). Skill `pipeline-bericht` 1.0.0 mit Faktenskript freigegeben 27.11.2026: C1 bis C4 voll, Zahlen und Zuständigkeiten richtig. Wöchentlicher Zeitplan offen |
 
 ### UC-029 Akquise Neukunde: von der Mail zur Verkaufschance
 

@@ -8,10 +8,10 @@ Ich habe dieses Labor gebaut, um praktisch herauszufinden, was ein KI-Agent in e
 
 | | |
 | --- | --- |
-| **Zeit** | rund 60 Stunden vom leeren Laptop bis zum laufenden Agenten, 28. Oktober bis 13. November 2026 |
-| **Anwendungsfälle** | 5, gebaut und gegen Sollwerte evaluiert, mit Fallen zu Betrug und Prompt Injection |
-| **Modellkosten** | in der Testphase vernachlässigbar, unter einem Rappen pro Offerte oder Lieferantenrechnung |
-| **Stand** | Work in Progress, wird schrittweise ausgebaut |
+| **Stand** | Work in Progress, zuletzt aktualisiert am 27. November 2026 |
+| **Zeit** | rund 93 Stunden vom leeren Laptop bis zum laufenden System, 28. Oktober bis 27. November 2026 |
+| **Anwendungsfälle** | 6, gebaut und gegen Sollwerte evaluiert, mit Fallen zu Betrug, Prompt Injection und CRM-Prüffällen |
+| **Modellkosten** | in der Testphase vernachlässigbar, unter einem Rappen pro Standardablauf |
 
 ## Was das Projekt zeigt
 
@@ -33,6 +33,7 @@ Alle Läufe mit einem günstigen Modell (DeepSeek Flash).
 | Offerte als Entwurf aus einer Kundenanfrage | 10 Anfragen mit Rabattforderung, unbekanntem Kunden und Täuschung | Erster Lauf 8 von 10, beide Abweichungen vom Agenten selbst gemeldet. Nach einer Korrektur im Skill 10 von 10 | rund USD 0.007 pro Anfrage |
 | Posteingang: jede Mail einordnen und bearbeiten | 9 Offert-Anfragen per Mail, geschickt von einem zweiten Agenten | 7 von 7 Angeboten wie Sollwert. Unbekannter Kunde zurückgehalten, interne Notiz mit Anweisung an die KI gemeldet | USD 0.037 für das Set |
 | Posteingang mit Fallen | 12 gemischte Mails: Bestellung, Reklamation, Mahnung, Spam, gefälschte Bankverbindung, versteckte Anweisung | Keine Falle erreichte den Schritt, der schreiben darf. Nichts Unerwünschtes im ERP | USD 0.023 für das Set |
+| Pipeline-Bericht mit Kommentar (CRM) | 41 Verkaufschancen mit 4 eingebauten Prüffällen (C1 bis C4) | Mit Skill 1.0.0 alle 4 voll erkannt, alle Zahlen und Zuständigkeiten richtig | USD 0.008 pro Bericht |
 
 Einzelheiten pro Lauf: [docs/erkenntnisse.md](docs/erkenntnisse.md).
 
@@ -46,7 +47,7 @@ Einzelheiten pro Lauf: [docs/erkenntnisse.md](docs/erkenntnisse.md).
 
 ## Zeit und Kosten
 
-Rund 60 Stunden in 17 Tagen, gemessen an den Zeitstempeln der Entwicklungssitzungen und an meinen eigenen Notizen. Rund die Hälfte der Zeit verging, bevor der erste Anwendungsfall lief: ERP, Agent-Harness, abgeschotteter Dienstbenutzer, Netzsperre, Testdaten, Architektur und Kennzahlen-Bibliothek. Der Rest floss in Werkzeug-Server, Anwendungsfälle und Tests.
+Rund 93 Stunden in rund vier Wochen (28. Oktober bis 27. November 2026), gemessen an den Zeitstempeln der Entwicklungssitzungen und an meinen eigenen Notizen. Rund die Hälfte der Zeit verging, bevor der erste Anwendungsfall lief: ERP, Agent-Harness, abgeschotteter Dienstbenutzer, Netzsperre, Testdaten, Architektur und Kennzahlen-Bibliothek. Der Rest floss in Werkzeug-Server, Anwendungsfälle, Chat, CRM und Tests.
 
 Die laufenden Kosten sind tief: Odoo Community und die OCA-Module kosten keine Lizenz, das Sprachmodell kostet Rappen pro Tag, die Hardware ist ein separater Business-Laptop. Bei reger Nutzung im Alltag steigen die Tokenkosten, darum wird jeder Lauf mit Kosten aufgezeichnet. Nicht eingerechnet sind die Abos für die Entwicklungswerkzeuge (Claude, Google Antigravity), je 20 Dollar pro Monat.
 
@@ -67,6 +68,27 @@ flowchart TB
 1. **Lesen direkt, Schreiben über Werkzeuge.** Der Agent liest das ERP mit einem Benutzer, der nur lesen kann. Was Daten ändert, läuft über enge Werkzeuge wie «Offerte als Entwurf anlegen». Werkzeuge zum Bezahlen oder Löschen gibt es nicht.
 2. **Die Rechte sitzen in den Systemen, nicht im Prompt.** Vier Sperren liegen übereinander: das enge Werkzeug, die Prüfregeln im Server, die Freigabe durch den Menschen und die Rechte des technischen Benutzers im ERP. An die Schlüssel zum Schreiben kommt der Agent nicht heran.
 3. **Inhalt ist kein Auftrag.** Was in einer Mail oder einem Beleg steht, ist Arbeitsmaterial. Der Agent befolgt keine Anweisungen darin, er meldet sie.
+
+## Sicherheitsmodell (Defense in Depth)
+
+Das Sicherheitsmodell folgt dem Prinzip Defense in Depth: Mehrere Schichten begrenzen den Agenten auf der technischen Ebene – vom Zugang bis zur Netzsperre:
+
+```mermaid
+flowchart LR
+    P["1. Zugang & Kanäle<br/>Zwei Kontrollen vor dem Chat · Scoped Channels"] --> I["2. Auftrag & Eingabe<br/>Themenschutz · Prompt-Injection-Schutz"]
+    I --> T["3. Rechte & Werkzeuge<br/>Leserechte · MCP-Entwürfe · Freigabe per Knopf"]
+    T --> H["4. System & Netz<br/>Abgeschotteter Benutzer · Egress-Allowlist"]
+    O["Querschnitt: Observability · Kostenalarm · Audit-Log · Secrets-Hygiene"] -.-> P
+    O -.-> I
+    O -.-> T
+    O -.-> H
+```
+
+- **Zugang & Kanäle:** Zwei unabhängige Kontrollen vor dem Web-Chat (Cloudflare Access und eigene Prüfung im Dienst). Jeder Kanal (Web-Chat, Telegram, Posteingang) erhält nur die Werkzeuge, die er wirklich braucht.
+- **Auftrag & Eingabe:** Fester Themenschutz pro Kanal weist fachfremde Anfragen ab. Inhalte aus Mails und Belegen sind Arbeitsmaterial, keine Befehle.
+- **Rechte, Werkzeuge & Freigabe:** Im ERP (Odoo) und Postfach hat der Agent nur Leserechte. Schreiben läuft über enge Werkzeuge des MCP-Servers als Entwurf; alles Folgenreiche erfordert eine Freigabe per Knopf durch den Menschen.
+- **System & Netzsperre:** Der Agent läuft unter einem abgeschotteten Dienstbenutzer ohne Zugriff auf Host oder Container. Ausgehender Netzverkehr ist über eine Egress-Allowlist auf wenige, freigegebene Ziele begrenzt.
+- **Transparenz & Hygiene:** Vollständiges Tracing (Langfuse), täglicher Kostenalarm, Audit-Log am Werkzeug-Server und strikte Trennung von Code und Secrets.
 
 ## Wegweiser durch das Repository
 
